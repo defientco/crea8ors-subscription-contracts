@@ -7,9 +7,7 @@ import { Lock__Errors } from "../../../shared/errors";
 export default function shouldBehaveLikeWithdraw(): void {
   context("when called too soon", function () {
     it("reverts", async function () {
-      await expect(this.contracts.lock.withdraw()).to.be.revertedWith(
-        Lock__Errors.YouCantWithdrawYet
-      );
+      await expect(this.contracts.lock.withdraw()).to.be.revertedWith(Lock__Errors.YouCantWithdrawYet);
     });
   });
 

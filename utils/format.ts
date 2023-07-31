@@ -120,11 +120,7 @@ export function fromWeiToNum(value: BigNumberish, decimals: number = 18): number
  * @param precision - The number of decimal places to include in the fixed-point number.
  * @returns The fixed-point number representation of the value.
  */
-export function fromWeiTodNumWithPrecision(
-  value: BigNumberish,
-  decimals: number = 18,
-  precision: number = 4
-): number {
+export function fromWeiTodNumWithPrecision(value: BigNumberish, decimals: number = 18, precision: number = 4): number {
   const fromWeiNum = fromWeiToNum(value, decimals);
   const fromWeiNumToFixed = numWithPrecision(fromWeiNum, precision);
 

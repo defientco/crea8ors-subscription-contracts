@@ -1,5 +1,5 @@
 bracketSpacing: true
-printWidth: 100
+printWidth: 120
 proseWrap: "always"
 singleQuote: false
 tabWidth: 2
@@ -8,11 +8,6 @@ plugins:
   - "@trivago/prettier-plugin-sort-imports"
 
 overrides:
-  - files: "*.sol"
-    options:
-      tabWidth: 4
-      useTabs: false
-      bracketSpacing: true
   - files: "*.ts"
     options:
       importOrder: ["<THIRD_PARTY_MODULES>", "^[./]"]

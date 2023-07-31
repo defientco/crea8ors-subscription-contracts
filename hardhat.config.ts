@@ -48,19 +48,16 @@ const getAccounts = (): HttpNetworkAccountsUserConfig => {
 
 // { [key in NetworkName]: { chainId, url, accounts } }
 function getAllNetworkConfigs(): Record<NetworkName, NetworkUserConfig> {
-  const networkConfigs = Object.entries(NETWORKS).reduce<Record<string, NetworkUserConfig>>(
-    (memo, network) => {
-      const key = network[0] as NetworkName;
-      const value = network[1] as Network;
+  const networkConfigs = Object.entries(NETWORKS).reduce<Record<string, NetworkUserConfig>>((memo, network) => {
+    const key = network[0] as NetworkName;
+    const value = network[1] as Network;
 
-      memo[key] = {
-        ...value,
-        accounts: getAccounts(),
-      };
-      return memo;
-    },
-    {}
-  );
+    memo[key] = {
+      ...value,
+      accounts: getAccounts(),
+    };
+    return memo;
+  }, {});
 
   return networkConfigs as Record<NetworkName, NetworkUserConfig>;
 }
@@ -119,9 +116,7 @@ const config: HardhatUserConfig = {
     tests: "./test",
   },
   preprocess: {
-    eachLine: removeConsoleLog(
-      (hre) => hre.network.name !== "hardhat" && hre.network.name !== "ganache"
-    ),
+    eachLine: removeConsoleLog((hre) => hre.network.name !== "hardhat" && hre.network.name !== "ganache"),
   },
   solidity: {
     compilers: [

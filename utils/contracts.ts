@@ -35,10 +35,7 @@ export async function getContractInstances<T extends Contract = Contract>(
   addresses: string[],
   signers?: Signer[]
 ): Promise<T[] | null> {
-  if (
-    contractNameOrAbi.length !== addresses.length ||
-    (signers && contractNameOrAbi.length !== signers.length)
-  ) {
+  if (contractNameOrAbi.length !== addresses.length || (signers && contractNameOrAbi.length !== signers.length)) {
     return null;
   }
 
@@ -67,14 +64,8 @@ export async function preDeploy(signerAddress: string, contractName: string): Pr
   const { chainId, name } = await ethers.provider.getNetwork();
   const ethBalance = await ethers.provider.getBalance(signerAddress);
 
-  console.log(
-    ` 🛰  Deploying: ${chalk.cyan(contractName)} to Network: ${name} & ChainId: ${chainId}`
-  );
-  console.log(
-    ` 🎭 Deployer: ${chalk.cyan(signerAddress)}, Balance: ${chalk.grey(
-      fromWei(ethBalance ?? 0)
-    )} ETH`
-  );
+  console.log(` 🛰  Deploying: ${chalk.cyan(contractName)} to Network: ${name} & ChainId: ${chainId}`);
+  console.log(` 🎭 Deployer: ${chalk.cyan(signerAddress)}, Balance: ${chalk.grey(fromWei(ethBalance ?? 0))} ETH`);
 }
 
 /**
@@ -84,10 +75,7 @@ export async function preDeploy(signerAddress: string, contractName: string): Pr
  * @param contract - The contract instance.
  * @returns A promise that resolves to the contract instance that has been deployed.
  */
-export async function postDeploy<T extends BaseContract = BaseContract>(
-  contractName: string,
-  contract: T
-): Promise<T> {
+export async function postDeploy<T extends BaseContract = BaseContract>(contractName: string, contract: T): Promise<T> {
   // Wait for the contract to be deployed
   await contract.waitForDeployment();
 

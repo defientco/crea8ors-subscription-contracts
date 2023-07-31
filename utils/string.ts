@@ -277,12 +277,7 @@ export function repeat(str: string | undefined, n: number) {
 /**
  * Limit number of chars.
  */
-export function truncate(
-  str: string,
-  maxChars: number,
-  append: string | any[],
-  onlyFullWords: boolean
-) {
+export function truncate(str: string, maxChars: number, append: string | any[], onlyFullWords: boolean) {
   append = append || "...";
   maxChars = onlyFullWords ? maxChars + 1 : maxChars;
 

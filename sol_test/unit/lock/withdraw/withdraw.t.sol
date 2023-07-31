@@ -19,9 +19,7 @@ contract Lock_Withdraw is LockTest {
     }
 
     /// @dev it should revert.
-    function testFuzz_RevertWhen_CalledFromAnotherAccount(
-        address anotherAccount
-    ) external CalledOnTime {
+    function testFuzz_RevertWhen_CalledFromAnotherAccount(address anotherAccount) external CalledOnTime {
         vm.assume(anotherAccount != address(0));
         vm.assume(anotherAccount != deployer);
 
@@ -52,11 +50,7 @@ contract Lock_Withdraw is LockTest {
     }
 
     /// @dev it should transfer the funds to the owner.
-    function test_CalledFromOwnerOnTime_TransferFundsToOwner()
-        external
-        CalledOnTime
-        CalledFromOwner
-    {
+    function test_CalledFromOwnerOnTime_TransferFundsToOwner() external CalledOnTime CalledFromOwner {
         // We can increase the time to unlockTime.
         increaseTimeToUnlockTime();
 

@@ -19,59 +19,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ahmedali8/local--crea8ors-subscription-contracts@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@ahmedali8/local--crea8ors-subscription-contracts@workspace:."
-  dependencies:
-    "@ethersproject/bignumber": ^5.7.0
-    "@nomicfoundation/hardhat-chai-matchers": ^2.0.1
-    "@nomicfoundation/hardhat-ethers": ^3.0.4
-    "@nomicfoundation/hardhat-foundry": ^1.0.2
-    "@nomicfoundation/hardhat-network-helpers": ^1.0.8
-    "@nomicfoundation/hardhat-toolbox": ^3.0.0
-    "@nomicfoundation/hardhat-verify": ^1.0.4
-    "@primitivefi/hardhat-dodoc": ^0.2.3
-    "@trivago/prettier-plugin-sort-imports": ^4.2.0
-    "@typechain/ethers-v6": ^0.4.3
-    "@typechain/hardhat": ^8.0.3
-    "@types/chai": ^4.3.5
-    "@types/fs-extra": ^11.0.1
-    "@types/mocha": ^10.0.1
-    "@types/node": ^20.4.5
-    "@typescript-eslint/eslint-plugin": ^5.62.0
-    "@typescript-eslint/parser": ^5.62.0
-    chai: 4.3.7
-    chalk: 4.1.2
-    cross-env: ^7.0.3
-    dotenv: ^16.3.1
-    eslint: ^8.46.0
-    eslint-config-prettier: ^8.9.0
-    ethers: 6.6.7
-    evm-bn: ^1.1.2
-    fs-extra: ^11.1.1
-    hardhat: 2.17.0
-    hardhat-contract-sizer: 2.10.0
-    hardhat-deploy: ^0.11.34
-    hardhat-deploy-ethers: ^0.4.1
-    hardhat-gas-reporter: 1.0.9
-    hardhat-preprocessor: ^0.1.5
-    hardhat-storage-layout: ^0.1.7
-    hardhat-test-suite-generator: ^2.0.0
-    lodash: ^4.17.21
-    mocha: ^10.2.0
-    prettier: ^2.8.8
-    prettier-plugin-solidity: ^1.1.3
-    shx: 0.3.4
-    solhint-community: ^3.7.0-rc00
-    solhint-plugin-prettier: ^0.0.5
-    solidity-coverage: 0.8.4
-    ts-generator: ^0.1.1
-    ts-node: ^10.9.1
-    typechain: ^8.3.1
-    typescript: ^5.1.6
-  languageName: unknown
-  linkType: soft
-
 "@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.16.7, @babel/code-frame@npm:^7.22.5":
   version: 7.22.5
   resolution: "@babel/code-frame@npm:7.22.5"
@@ -284,6 +231,57 @@ __metadata:
   checksum: 5718f267085ed8edb3e7ef210137241775e607ee18b77d95aa5bd7514f47f5019aa2d82d96b3bf342ef7aa890a346fa1044532ff7cc3009e7d24fce3ce6200fa
   languageName: node
   linkType: hard
+
+"@defientco/crea8ors-subscription-contracts@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@defientco/crea8ors-subscription-contracts@workspace:."
+  dependencies:
+    "@ethersproject/bignumber": ^5.7.0
+    "@nomicfoundation/hardhat-chai-matchers": ^2.0.1
+    "@nomicfoundation/hardhat-ethers": ^3.0.4
+    "@nomicfoundation/hardhat-foundry": ^1.0.2
+    "@nomicfoundation/hardhat-network-helpers": ^1.0.8
+    "@nomicfoundation/hardhat-toolbox": ^3.0.0
+    "@nomicfoundation/hardhat-verify": ^1.0.4
+    "@primitivefi/hardhat-dodoc": ^0.2.3
+    "@trivago/prettier-plugin-sort-imports": ^4.2.0
+    "@typechain/ethers-v6": ^0.4.3
+    "@typechain/hardhat": ^8.0.3
+    "@types/chai": ^4.3.5
+    "@types/fs-extra": ^11.0.1
+    "@types/mocha": ^10.0.1
+    "@types/node": ^20.4.5
+    "@typescript-eslint/eslint-plugin": ^5.62.0
+    "@typescript-eslint/parser": ^5.62.0
+    chai: 4.3.7
+    chalk: 4.1.2
+    cross-env: ^7.0.3
+    dotenv: ^16.3.1
+    eslint: ^8.46.0
+    eslint-config-prettier: ^8.9.0
+    ethers: 6.6.7
+    evm-bn: ^1.1.2
+    fs-extra: ^11.1.1
+    hardhat: 2.17.0
+    hardhat-contract-sizer: 2.10.0
+    hardhat-deploy: ^0.11.34
+    hardhat-deploy-ethers: ^0.4.1
+    hardhat-gas-reporter: 1.0.9
+    hardhat-preprocessor: ^0.1.5
+    hardhat-storage-layout: ^0.1.7
+    hardhat-test-suite-generator: ^2.0.0
+    lodash: ^4.17.21
+    mocha: ^10.2.0
+    prettier: ^2.8.8
+    shx: 0.3.4
+    solhint-community: ^3.7.0-rc00
+    solidity-coverage: 0.8.4
+    ts-generator: ^0.1.1
+    ts-node: ^10.9.1
+    typechain: ^8.3.1
+    typescript: ^5.1.6
+  languageName: unknown
+  linkType: soft
 
 "@eslint-community/eslint-utils@npm:^4.2.0":
   version: 4.4.0
@@ -3853,7 +3851,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-diff@npm:^1.1.2, fast-diff@npm:^1.2.0":
+"fast-diff@npm:^1.2.0":
   version: 1.3.0
   resolution: "fast-diff@npm:1.3.0"
   checksum: d22d371b994fdc8cce9ff510d7b8dc4da70ac327bcba20df607dd5b9cae9f908f4d1028f5fe467650f058d1e7270235ae0b8230809a262b4df587a3b3aa216c3
@@ -6825,28 +6823,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-linter-helpers@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "prettier-linter-helpers@npm:1.0.0"
-  dependencies:
-    fast-diff: ^1.1.2
-  checksum: 00ce8011cf6430158d27f9c92cfea0a7699405633f7f1d4a45f07e21bf78e99895911cbcdc3853db3a824201a7c745bd49bfea8abd5fb9883e765a90f74f8392
-  languageName: node
-  linkType: hard
-
-"prettier-plugin-solidity@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "prettier-plugin-solidity@npm:1.1.3"
-  dependencies:
-    "@solidity-parser/parser": ^0.16.0
-    semver: ^7.3.8
-    solidity-comments-extractor: ^0.0.7
-  peerDependencies:
-    prettier: ">=2.3.0 || >=3.0.0-alpha.0"
-  checksum: d5aadfa411a4d983a2bd204048726fd91fbcaffbfa26d818ef0d6001fb65f82d0eae082e935e96c79e65e09ed979b186311ddb8c38be2f0ce5dd5f5265df77fe
-  languageName: node
-  linkType: hard
-
 "prettier@npm:^2.1.2, prettier@npm:^2.3.1, prettier@npm:^2.8.3, prettier@npm:^2.8.8":
   version: 2.8.8
   resolution: "prettier@npm:2.8.8"
@@ -7377,7 +7353,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8":
+"semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7":
   version: 7.5.3
   resolution: "semver@npm:7.5.3"
   dependencies:
@@ -7613,25 +7589,6 @@ __metadata:
   bin:
     solhint: solhint.js
   checksum: e7e1dfd9965031a2a9eadecb6ec76997b1b044162040397ad916a7382a5c31533be8e5300ec2e909fc076e246effd23c6b8bbed891d996f9370b87afc4ee606b
-  languageName: node
-  linkType: hard
-
-"solhint-plugin-prettier@npm:^0.0.5":
-  version: 0.0.5
-  resolution: "solhint-plugin-prettier@npm:0.0.5"
-  dependencies:
-    prettier-linter-helpers: ^1.0.0
-  peerDependencies:
-    prettier: ^1.15.0 || ^2.0.0
-    prettier-plugin-solidity: ^1.0.0-alpha.14
-  checksum: ca721e327daf49a4d9ef0ee5c9622482a8c5563d600eedfd3856c69ce67e416dd77da5166a033e2e641c9cdd7a0f2cbc7913b0eb1712081b3c7e8c633eef82a5
-  languageName: node
-  linkType: hard
-
-"solidity-comments-extractor@npm:^0.0.7":
-  version: 0.0.7
-  resolution: "solidity-comments-extractor@npm:0.0.7"
-  checksum: a5cedf2310709969bc1783a6c336171478536f2f0ea96ad88437e0ef1e8844c0b37dd75591b0a824ec9c30640ea7e31b5f03128e871e6235bef3426617ce96c4
   languageName: node
   linkType: hard
 
