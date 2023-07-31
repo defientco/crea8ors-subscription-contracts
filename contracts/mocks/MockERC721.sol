@@ -47,14 +47,14 @@ contract MockERC721 is ERC721 {
 
             (bool success, bytes memory res) = subscription.staticcall(abi.encode(tokenId));
 
-            console2.log("MockERC721 res: ");
-            console2.logBytes(res);
+            // console2.log("MockERC721 res: ");
+            // console2.logBytes(res);
 
             if (!success) revert ExternalCallUnsuccessful();
 
             bool isSubValid = abi.decode(res, (bool));
 
-            console2.log("isSubValid: ", isSubValid);
+            // console2.log("isSubValid: ", isSubValid);
 
             if (!isSubValid) revert SubscriptionExpired();
         }

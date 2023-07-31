@@ -32,8 +32,8 @@ contract Subscription is IERC5643 {
     }
 
     fallback(bytes calldata input) external payable returns (bytes memory) {
-        console2.log("msg.sender: ", msg.sender);
-        console2.logBytes(input);
+        // console2.log("msg.sender: ", msg.sender);
+        // console2.logBytes(input);
 
         // send / transfer (forwards 2300 gas to this fallback function)
         // call (forwards all of the gas)
@@ -44,17 +44,17 @@ contract Subscription is IERC5643 {
         // check data length
         if (input.length == 0) revert CalledWithOutData();
 
-        console2.log("here");
+        // console2.log("here");
 
         // Decode the msg.data/input and extract the parameter
         uint256 tokenId = abi.decode(input, (uint256));
-        console2.log("tokenId: ", tokenId);
+        // console2.log("tokenId: ", tokenId);
 
         // check if tokenId is valid
         if (tokenId == 0) revert InvalidTokenId();
 
         bool res = isSubscriptionValid(tokenId);
-        console2.log("isSubscriptionValid res: ", res);
+        // console2.log("isSubscriptionValid res: ", res);
 
         return abi.encode(res);
     }
@@ -68,9 +68,9 @@ contract Subscription is IERC5643 {
     }
 
     function renewSubscription(uint256 tokenId, uint64 duration) external payable virtual override {
-        console2.log("msg.sender: ", msg.sender);
-        console2.log("tokenId: ", tokenId);
-        console2.log("duration: ", duration);
+        // console2.log("msg.sender: ", msg.sender);
+        // console2.log("tokenId: ", tokenId);
+        // console2.log("duration: ", duration);
 
         // only owner of the token id can call this
         // isApprovedOrOwner in crea8ors ??
