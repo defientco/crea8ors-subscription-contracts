@@ -25,6 +25,7 @@ contract MockERC721 is ERC721 {
     }
 
     function subscribe(uint256 tokenId, uint64 duration) public {
+        // solhint-disable-next-line
         subscription.call(abi.encodeWithSignature("extendSubscription(uint256,uint64)", tokenId, duration));
     }
 

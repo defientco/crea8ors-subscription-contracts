@@ -175,6 +175,7 @@ contract Subscription is IERC5643 {
      * should override this function if renewabilty should be disabled for all or
      * some tokens.
      */
+    // solhint-disable-next-line
     function _isRenewable(uint256 tokenId) internal view virtual returns (bool) {
         return _renewable;
     }
@@ -183,6 +184,7 @@ contract Subscription is IERC5643 {
      * @dev Gets the price to renew a subscription for `duration` seconds for
      * a given tokenId. This should be overridden in implementing contracts.
      */
+    // solhint-disable-next-line
     function _getRenewalPrice(uint256 tokenId, uint64 duration) internal view virtual returns (uint256) {
         return 0.1 ether;
     }

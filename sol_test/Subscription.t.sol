@@ -6,6 +6,7 @@ import { MockERC721 } from "contracts/mocks/MockERC721.sol";
 import { Subscription } from "contracts/Subscription.sol";
 import { IERC721 } from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
+// solhint-disable-next-line
 import { console2 } from "forge-std/console2.sol";
 
 error SubscriptionExpired();
