@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.19 <0.9.0;
 
-import { Utils } from "../shared/Utils.t.sol";
+import { Utils } from "./shared/Utils.t.sol";
 
 /// @title BaseTest
 /// @author Ahmed Ali
