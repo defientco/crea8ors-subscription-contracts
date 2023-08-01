@@ -89,8 +89,5 @@
     "template"
   ],
   "license": "MIT",
-  "packageManager": "yarn@3.6.1",
-  "dependencies": {
-    "@openzeppelin/contracts": "^4.9.3"
-  }
+  "packageManager": "yarn@3.6.1"
 }
