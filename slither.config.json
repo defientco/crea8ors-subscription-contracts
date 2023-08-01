@@ -1,4 +1,4 @@
 {
   "detectors_to_exclude": "naming-convention,solc-version",
-  "filter_paths": "(lib|test)"
+  "filter_paths": "(lib|test|sol_test|sol_script)"
 }
