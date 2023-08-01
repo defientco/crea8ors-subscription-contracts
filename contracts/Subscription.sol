@@ -6,6 +6,8 @@ import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { ISubscription } from "./interfaces/ISubscription.sol";
 import { ERC5643 } from "./abstracts/ERC5643.sol";
 
+// TODO FIX - Known issue -> price calculation and validation
+
 contract Subscription is ISubscription, ERC5643 {
     /*//////////////////////////////////////////////////////////////
                             PUBLIC CONSTANTS
@@ -152,17 +154,29 @@ contract Subscription is ISubscription, ERC5643 {
 
     /// @inheritdoc ISubscription
     function updateSubscription(uint256 tokenId, uint64 duration) external payable override onlyMinter {
-        _handleNativePaymentSubscriptionUpdate(tokenId, msg.value, duration);
+        _validateDurationBetweenMinAndMax(duration);
+
+        _validateRenewalPrice(msg.value, duration);
+
+        // extend subscription
+        _updateSubscriptionExpiration(tokenId, duration);
     }
 
     /// @inheritdoc ISubscription
     function updateSubscription(uint256[] calldata tokenIds, uint64 duration) external payable override onlyMinter {
+        if (tokenIds.length == 0) revert InvalidLength();
+
+        uint256 val = msg.value;
+        _validateRenewalPrice(val, uint64(tokenIds.length * duration));
+
         uint256 tokenId;
 
         for (uint256 i = 0; i < tokenIds.length;) {
             tokenId = tokenIds[i];
 
-            _handleNativePaymentSubscriptionUpdate(tokenId, msg.value, duration);
+            _validateDurationBetweenMinAndMax(duration);
+
+            _updateSubscriptionExpiration(tokenId, duration);
 
             unchecked {
                 ++i;
@@ -235,6 +249,7 @@ contract Subscription is ISubscription, ERC5643 {
         override
         onlyMinter
     {
+        if (tokenIds.length == 0) revert InvalidLength();
         uint256 tokenId;
 
         for (uint256 i = 0; i < tokenIds.length;) {

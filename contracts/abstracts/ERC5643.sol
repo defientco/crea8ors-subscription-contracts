@@ -61,7 +61,12 @@ abstract contract ERC5643 is IERC5643, PaymentSystem {
     function renewSubscription(uint256 tokenId, uint64 duration) external payable virtual override {
         _validateCallerAsOwnerOrApproved({ caller: msg.sender, tokenId: tokenId });
 
-        _handleNativePaymentSubscriptionUpdate(tokenId, msg.value, duration);
+        _validateDurationBetweenMinAndMax(duration);
+
+        _validateRenewalPrice(msg.value, duration);
+
+        // extend subscription
+        _updateSubscriptionExpiration(tokenId, duration);
     }
 
     /// @inheritdoc IERC5643
@@ -129,21 +134,6 @@ abstract contract ERC5643 is IERC5643, PaymentSystem {
     /*//////////////////////////////////////////////////////////////
                      INTERNAL NON-CONSTANT FUNCTIONS
     //////////////////////////////////////////////////////////////*/
-
-    /// @notice Handles the update of a subscription using native currency as payment method.
-    /// @dev This function performs validations on the `duration` and payment `val` received from the function caller,
-    /// and then extends the subscription represented by `tokenId` for the specified `duration`.
-    /// @param tokenId The unique identifier of the NFT token representing the subscription.
-    /// @param val The payment value provided by the function caller for the subscription renewal.
-    /// @param duration The duration (in seconds) for which the subscription is to be extended.
-    function _handleNativePaymentSubscriptionUpdate(uint256 tokenId, uint256 val, uint64 duration) internal {
-        _validateDurationBetweenMinAndMax(duration);
-
-        _validateRenewalPrice(val, duration);
-
-        // extend subscription
-        _updateSubscriptionExpiration(tokenId, duration);
-    }
 
     /// @notice Updates the expiration timestamp for a subscription represented by the given `tokenId`.
     /// @dev this function won't check that the tokenId is valid, responsibility is delegated to the caller.
