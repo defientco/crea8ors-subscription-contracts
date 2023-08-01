@@ -3,8 +3,6 @@ pragma solidity ^0.8.19;
 
 import { ERC20TransferHelper } from "./libraries/ERC20TransferHelper.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import { IERC721 } from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import { IERC5643 } from "./interfaces/IERC5643.sol";
 import { ISubscription } from "./interfaces/ISubscription.sol";
 import { ERC5643 } from "./abstracts/ERC5643.sol";
 
@@ -13,6 +11,7 @@ contract Subscription is ISubscription, ERC5643 {
                             PUBLIC CONSTANTS
     //////////////////////////////////////////////////////////////*/
 
+    /// @notice The default duration for subscriptions, set to 365 days (1 year).
     uint64 public constant DEFAULT_SUBSCRIPTION_DURATION = 365 days;
 
     /*//////////////////////////////////////////////////////////////
@@ -25,6 +24,9 @@ contract Subscription is ISubscription, ERC5643 {
                                CONSTRUCTOR
     //////////////////////////////////////////////////////////////*/
 
+    /// @dev Initializes the Subscription contract with the address of the NFT and the minter contract addresses.
+    /// @param _cre8orsNFT The address of the NFT contract. (cre8ors)
+    /// @param _minter The address of the minter. (FriendsAndFamilyMinter)
     constructor(address _cre8orsNFT, address _minter) ERC5643(_cre8orsNFT, _minter) { }
 
     /*//////////////////////////////////////////////////////////////
@@ -70,14 +72,23 @@ contract Subscription is ISubscription, ERC5643 {
                     ONLY-ADMIN NON-CONSTANT FUNCTIONS
     //////////////////////////////////////////////////////////////*/
 
+    /// @notice Sets the renewability status of subscriptions.
+    /// @dev This function can only be called by the admin.
+    /// @param renewable Boolean flag to indicate if subscriptions are renewable.
     function setRenewable(bool renewable) external onlyAdmin {
         _renewable = renewable;
     }
 
+    /// @notice Sets the minimum duration for subscription renewal.
+    /// @dev This function can only be called by the admin.
+    /// @param duration The minimum duration (in seconds) for subscription renewal.
     function setMinRenewalDuration(uint64 duration) external onlyAdmin {
         _setMinimumRenewalDuration(duration);
     }
 
+    /// @notice Sets the maximum duration for subscription renewal.
+    /// @dev This function can only be called by the admin.
+    /// @param duration The maximum duration (in seconds) for subscription renewal.
     function setMaxRenewalDuration(uint64 duration) external onlyAdmin {
         _setMaximumRenewalDuration(duration);
     }
@@ -296,6 +307,10 @@ contract Subscription is ISubscription, ERC5643 {
                      INTERNAL NON-CONSTANT FUNCTIONS
     //////////////////////////////////////////////////////////////*/
 
+    /// @dev Internal function to handle ERC20 token payment for subscription and extend subscription.
+    /// @param tokenId The unique identifier of the subscription token.
+    /// @param duration The duration (in seconds) to extend the subscription for.
+    /// @param erc20 The address of the ERC20 token to use for payment.
     function _handleERC20PaymentSubscriptionUpdate(uint256 tokenId, uint64 duration, address erc20) internal {
         _validateDurationBetweenMinAndMax(duration);
 
@@ -306,6 +321,9 @@ contract Subscription is ISubscription, ERC5643 {
         _updateSubscriptionExpiration(tokenId, duration);
     }
 
+    /// @dev Internal function to handle ERC20 token payment with pre-flight checks.
+    /// @param duration The duration (in seconds) to extend the subscription for.
+    /// @param erc20 The address of the ERC20 token to use for payment.
     function _handleERC20Payment(uint64 duration, address erc20) internal {
         address msgSender = msg.sender;
         address addressThis = address(this);
