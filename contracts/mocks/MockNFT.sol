@@ -6,12 +6,14 @@ import { ISubscription } from "../interfaces/ISubscription.sol";
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 
 interface IMockNFT {
+    error SubscriptionCannotBeZeroAddress();
+
     function mint(address to, uint256 tokenId) external returns (uint256);
     function burn(uint256 tokenId) external returns (uint256);
 }
 
 // cre8ors nft
-contract MockNFT is Ownable, ERC721 {
+contract MockNFT is IMockNFT, Ownable, ERC721 {
     // REQUIRED
     address public subscription;
     bool public isSubscriptionEnabled;
@@ -47,6 +49,7 @@ contract MockNFT is Ownable, ERC721 {
 
     // ONLY_ADMIN REQUIRED
     function setSubscription(address s) external onlyOwner {
+        if (s == address(0)) revert SubscriptionCannotBeZeroAddress();
         subscription = s;
     }
 
