@@ -12,7 +12,7 @@
     "not-rely-on-time": "off",
     "named-parameters-mapping": "warn",
     "no-console": "off",
-    "no-complex-fallback": "off",
+    "no-empty-blocks": "off",
     "var-name-mixedcase": "off"
   }
 }
