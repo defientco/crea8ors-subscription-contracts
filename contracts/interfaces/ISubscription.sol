@@ -15,7 +15,7 @@ interface ISubscription {
     /// @dev This function is meant to be called by the minter when minting the NFT to subscribe.
     /// @param tokenId The unique identifier of the NFT token to be subscribed.
     /// @param duration The duration (in seconds) to extend the subscription for.
-    function updateSubscription(uint256 tokenId, uint64 duration) external;
+    function updateSubscription(uint256 tokenId, uint64 duration) external payable;
 
     /// @notice Extends the subscription for the given `tokenId` with a specified `duration`, using the accepted ERC20
     /// token as payment.
