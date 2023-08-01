@@ -6,3 +6,6 @@
 	branch = "release-v4.9"
 	path = lib/openzeppelin-contracts
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "lib/CR8ORS_DROP_CONTRACT"]
+	path = lib/CR8ORS_DROP_CONTRACT
+	url = https://github.com/defientco/CR8ORS_DROP_CONTRACT
