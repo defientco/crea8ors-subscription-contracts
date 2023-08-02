@@ -3,7 +3,6 @@ import type { DeployFunction, DeployResult } from "hardhat-deploy/types";
 import type { HardhatRuntimeEnvironment } from "hardhat/types";
 
 import { preDeploy } from "../utils/contracts";
-import { toWei } from "../utils/format";
 import { verifyContract } from "../utils/verify";
 
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
@@ -12,14 +11,13 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployer } = await getNamedAccounts();
   const chainId = await getChainId();
 
-  const CONTRACT_NAME = "Lock";
+  const CONTRACT_NAME = "Subscription";
 
-  const currentTimestampInSeconds = await time.latest();
-  const ONE_YEAR_IN_SECS = time.duration.years(1);
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
-  const lockedAmount = toWei("1");
-
-  const args: [number] = [unlockTime];
+  const args = [
+    "0x70997970C51812dc3A010C7d01b50e0d17dc79C8", // random
+    time.duration.days(1),
+    "38580246913", // Roughly calculates to 0.1 ether per 30 days
+  ];
 
   await preDeploy(deployer, CONTRACT_NAME);
   const deployResult: DeployResult = await deploy(CONTRACT_NAME, {
@@ -27,7 +25,6 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     from: deployer,
     args: args,
     log: true,
-    value: lockedAmount.toString(),
     // waitConfirmations: 5,
   });
 
