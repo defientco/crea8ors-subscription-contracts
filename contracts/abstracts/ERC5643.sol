@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import { ICre8ors } from "@crea8ors/interfaces/ICre8ors.sol";
 import { IERC721 } from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import { IERC5643 } from "../interfaces/IERC5643.sol";
 import { PaymentSystem } from "../abstracts/PaymentSystem.sol";
