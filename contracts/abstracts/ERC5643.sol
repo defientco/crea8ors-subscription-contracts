@@ -33,6 +33,7 @@ abstract contract ERC5643 is IERC5643, PaymentSystem {
                                 MODIFIERS
     //////////////////////////////////////////////////////////////*/
 
+    /// @dev Modifier to check if `spender` is the owner or approved for the `tokenId`.
     modifier onlyApprovedOrOwner(address spender, uint256 tokenId) {
         if (!_isApprovedOrOwner(spender, tokenId)) {
             revert IERC721Drop.Access_MissingOwnerOrApproved();
@@ -41,6 +42,7 @@ abstract contract ERC5643 is IERC5643, PaymentSystem {
         _;
     }
 
+    /// @dev Modifier to check if the `duration` is between `minRenewalDuration` and `maxRenewalDuration`.
     modifier isDurationBetweenMinAndMax(uint64 duration) {
         if (duration < minRenewalDuration) {
             revert RenewalTooShort();
@@ -51,9 +53,10 @@ abstract contract ERC5643 is IERC5643, PaymentSystem {
         _;
     }
 
+    /// @dev Modifier to check if the payment for `duration` is valid.
     modifier isRenewalPriceValid(uint256 value, uint64 duration) {
         if (duration == 0) {
-            revert InvalidDuration();
+            revert DurationForRenewalPriceCannotBeZero();
         }
 
         if (value < _getRenewalPrice(duration)) {
@@ -67,11 +70,16 @@ abstract contract ERC5643 is IERC5643, PaymentSystem {
                                CONSTRUCTOR
     //////////////////////////////////////////////////////////////*/
 
+    /// @dev Checks zero address validation
+    /// @param cre8orsNFT_ The address of the cre8orsNFT contract.
+    /// @param minRenewalDuration_ The minimum duration allowed for subscription renewal, can be zero.
+    /// @param pricePerSecond_ The price per second for the subscription, can be zero.
     constructor(
         address cre8orsNFT_,
         uint64 minRenewalDuration_,
         uint256 pricePerSecond_
     )
+        notZeroAddress(cre8orsNFT_)
         PaymentSystem(pricePerSecond_)
     {
         cre8orsNFT = cre8orsNFT_;
@@ -135,6 +143,9 @@ abstract contract ERC5643 is IERC5643, PaymentSystem {
                     ONLY-ADMIN NON-CONSTANT FUNCTIONS
     //////////////////////////////////////////////////////////////*/
 
+    /// @notice Set the address of the cre8ors contract.
+    /// @dev This function can only be called by the contract admin.
+    /// @param target The address of the new cre8ors contract.
     function setCre8orsNFT(address target) external onlyAdmin(target) {
         cre8orsNFT = target;
     }
