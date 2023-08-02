@@ -8,15 +8,16 @@ abstract contract PaymentSystem is IPaymentSystem, Admin {
     /// @notice The price per second for the subscription in native currency.
     uint256 public pricePerSecond;
 
-    /// @inherits IPaymentSystem
+    /// @inheritdoc IPaymentSystem
     function setPricePerSecond(address target, uint256 newPrice) external override onlyAdmin(target) {
         pricePerSecond = newPrice;
         emit PricePerSecondUpdated(newPrice);
     }
 
-    /// @inherits IPaymentSystem
+    /// @inheritdoc IPaymentSystem
     function withdraw(address target, address payable to) external override onlyAdmin(target) {
-        if (address(this).balance == 0) revert ValueCannotBeZero();
+        uint256 amount = address(this).balance;
+        if (amount == 0) revert ValueCannotBeZero();
 
         (bool success,) = to.call{ value: amount }("");
         if (!success) revert ETHTransferFailed();
