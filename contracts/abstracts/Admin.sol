@@ -3,10 +3,11 @@ pragma solidity ^0.8.19;
 
 import { IERC721Drop } from "@crea8ors/interfaces/IERC721Drop.sol";
 import { IAccessControl } from "@openzeppelin/contracts/access/IAccessControl.sol";
+import { Base } from "./Base.sol";
 
 /// @title Admin
 /// @notice An abstract contract with access control functionality.
-abstract contract Admin {
+abstract contract Admin is Base {
     /// @notice Access control roles
     bytes32 public constant MINTER_ROLE = keccak256("MINTER");
 
