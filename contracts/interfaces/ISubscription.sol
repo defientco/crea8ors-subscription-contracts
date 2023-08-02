@@ -11,28 +11,32 @@ interface ISubscription {
     /// @notice The subscription associated with the provided token ID is invalid or has expired.
     error InvalidSubscription();
 
-    error LengthMismatch();
-
-    error InvalidLength();
-
     /*//////////////////////////////////////////////////////////////
                                  EVENTS
     //////////////////////////////////////////////////////////////*/
+
+    /// @dev Emitted when the renewability status of subscriptions is updated.
+    event RenewableUpdate(bool renewable);
+
+    /// @dev Emitted when the minimum duration for subscription renewal is updated.
+    event MinRenewalDurationUpdate(uint64 duration);
+
+    /// @dev Emitted when the maximum duration for subscription renewal is updated.
+    event MaxRenewalDurationUpdate(uint64 duration);
 
     /*//////////////////////////////////////////////////////////////
                            CONSTANT FUNCTIONS
     //////////////////////////////////////////////////////////////*/
 
+    /// @notice Checks the subscription for the given `tokenId`.
+    /// Throws if `tokenId` subscription has expired.
+    /// @param tokenId The unique identifier of the NFT token.
+    function checkSubscription(uint256 tokenId) external view;
+
     /// @notice Returns whether the subscription for the given `tokenId` is valid.
     /// @param tokenId The unique identifier of the NFT token.
     /// @return A boolean indicating if the subscription is valid.
     function isSubscriptionValid(uint256 tokenId) external view returns (bool);
-
-    /// @notice Validates the subscription for the given `tokenId`.
-    /// Throws if `tokenId` subscription has expired.
-    /// @param tokenId The unique identifier of the NFT token.
-    /// @return A boolean indicating if the subscription is valid.
-    function validateSubscription(uint256 tokenId) external view returns (bool);
 
     /*//////////////////////////////////////////////////////////////
                          NON-CONSTANT FUNCTIONS
