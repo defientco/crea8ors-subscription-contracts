@@ -39,8 +39,12 @@ contract MockNFT is IMockNFT, Ownable, ERC721 {
     function ownerOf(uint256 tokenId) public view override returns (address) {
         // external call to subscription if it is enabled and present
         if (isSubscriptionEnabled && subscription != address(0)) {
-            // handles revert for us
-            ISubscription(subscription).validateSubscription(tokenId);
+            bool isSubscriptionValid = ISubscription(subscription).isSubscriptionValid(tokenId);
+
+            // if subscription expired
+            if (!isSubscriptionValid) {
+                return address(0);
+            }
         }
         return super.ownerOf(tokenId);
     }
