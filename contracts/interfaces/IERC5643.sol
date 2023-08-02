@@ -3,13 +3,11 @@ pragma solidity ^0.8.19;
 
 /// @title IERC5643
 /// @notice https://eips.ethereum.org/EIPS/eip-5643
+/// @dev type(IERC5643).interfaceId should return 0x8c65f84d
 interface IERC5643 {
     /*//////////////////////////////////////////////////////////////
-                                 ERRORS
+                             ERRORS
     //////////////////////////////////////////////////////////////*/
-
-    /// @notice The function caller is neither the owner of the token nor approved to perform the operation.
-    error CallerNotOwnerNorApproved();
 
     /// @notice The duration provided for renewal is too short to extend the subscription.
     error RenewalTooShort();
@@ -22,6 +20,8 @@ interface IERC5643 {
 
     /// @notice The subscription associated with the token is not renewable and cannot be extended.
     error SubscriptionNotRenewable();
+
+    error InvalidDuration();
 
     /*//////////////////////////////////////////////////////////////
                                  EVENTS
