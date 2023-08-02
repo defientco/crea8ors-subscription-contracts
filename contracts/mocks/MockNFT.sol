@@ -22,13 +22,13 @@ contract MockNFT is IMockNFT, Ownable, ERC721 {
 
     constructor() ERC721("", "") { }
 
-    function mint(address to, uint256 tokenId) public onlyOwner returns (uint256) {
+    function mint(address to, uint256 tokenId) public returns (uint256) {
         _mint(to, tokenId);
         totalSupply++;
         return tokenId;
     }
 
-    function burn(uint256 tokenId) public onlyOwner returns (uint256) {
+    function burn(uint256 tokenId) public returns (uint256) {
         _burn(tokenId);
         totalSupply--;
         return tokenId;
@@ -58,5 +58,15 @@ contract MockNFT is IMockNFT, Ownable, ERC721 {
     // ONLY_ADMIN REQUIRED
     function toggleSubscription() external onlyOwner {
         isSubscriptionEnabled = !isSubscriptionEnabled;
+    }
+
+    // JUST FOR TESTING
+
+    function hasRole(bytes32, /*role*/ address /*account*/ ) external view returns (bool) {
+        return true;
+    }
+
+    function isAdmin(address /*user*/ ) public view returns (bool) {
+        return true;
     }
 }
