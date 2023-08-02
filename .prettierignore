@@ -16,6 +16,7 @@ broadcast
 foundry_cache
 lib
 out
+deployments
 
 # files
 *.env
