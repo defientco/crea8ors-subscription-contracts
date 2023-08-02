@@ -8,6 +8,10 @@ abstract contract PaymentSystem is IPaymentSystem, Admin {
     /// @notice The price per second for the subscription in native currency.
     uint256 public pricePerSecond;
 
+    constructor(uint256 pricePerSecond_) {
+        pricePerSecond = pricePerSecond_;
+    }
+
     /// @inheritdoc IPaymentSystem
     function setPricePerSecond(address target, uint256 newPrice) external override onlyAdmin(target) {
         pricePerSecond = newPrice;
