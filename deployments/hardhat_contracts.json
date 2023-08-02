@@ -5,7 +5,7 @@
       "chainId": "5",
       "contracts": {
         "Subscription": {
-          "address": "0x68Da612b94090BC2AC463d33b3594953DffB857d",
+          "address": "0xe0E2558ed68A8024364f2ed21f7E6e649c848e2c",
           "abi": [
             {
               "inputs": [
@@ -51,6 +51,16 @@
             },
             {
               "inputs": [],
+              "name": "AddressCannotBeZero",
+              "type": "error"
+            },
+            {
+              "inputs": [],
+              "name": "DurationForRenewalPriceCannotBeZero",
+              "type": "error"
+            },
+            {
+              "inputs": [],
               "name": "ETHTransferFailed",
               "type": "error"
             },
@@ -61,22 +71,7 @@
             },
             {
               "inputs": [],
-              "name": "InvalidDuration",
-              "type": "error"
-            },
-            {
-              "inputs": [],
-              "name": "InvalidLength",
-              "type": "error"
-            },
-            {
-              "inputs": [],
               "name": "InvalidSubscription",
-              "type": "error"
-            },
-            {
-              "inputs": [],
-              "name": "LengthMismatch",
               "type": "error"
             },
             {
@@ -104,12 +99,51 @@
               "inputs": [
                 {
                   "indexed": false,
+                  "internalType": "uint64",
+                  "name": "duration",
+                  "type": "uint64"
+                }
+              ],
+              "name": "MaxRenewalDurationUpdate",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": false,
+                  "internalType": "uint64",
+                  "name": "duration",
+                  "type": "uint64"
+                }
+              ],
+              "name": "MinRenewalDurationUpdate",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": false,
                   "internalType": "uint256",
                   "name": "newPrice",
                   "type": "uint256"
                 }
               ],
               "name": "PricePerSecondUpdated",
+              "type": "event"
+            },
+            {
+              "anonymous": false,
+              "inputs": [
+                {
+                  "indexed": false,
+                  "internalType": "bool",
+                  "name": "renewable",
+                  "type": "bool"
+                }
+              ],
+              "name": "RenewableUpdate",
               "type": "event"
             },
             {
@@ -130,19 +164,6 @@
               ],
               "name": "SubscriptionUpdate",
               "type": "event"
-            },
-            {
-              "inputs": [],
-              "name": "DEFAULT_SUBSCRIPTION_DURATION",
-              "outputs": [
-                {
-                  "internalType": "uint64",
-                  "name": "",
-                  "type": "uint64"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
             },
             {
               "inputs": [],
@@ -168,6 +189,19 @@
               "name": "cancelSubscription",
               "outputs": [],
               "stateMutability": "payable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "tokenId",
+                  "type": "uint256"
+                }
+              ],
+              "name": "checkSubscription",
+              "outputs": [],
+              "stateMutability": "view",
               "type": "function"
             },
             {
@@ -319,6 +353,19 @@
               "name": "renewSubscription",
               "outputs": [],
               "stateMutability": "payable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "address",
+                  "name": "target",
+                  "type": "address"
+                }
+              ],
+              "name": "setCre8orsNFT",
+              "outputs": [],
+              "stateMutability": "nonpayable",
               "type": "function"
             },
             {
@@ -502,25 +549,6 @@
               "name": "updateSubscriptionForFree",
               "outputs": [],
               "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "inputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "tokenId",
-                  "type": "uint256"
-                }
-              ],
-              "name": "validateSubscription",
-              "outputs": [
-                {
-                  "internalType": "bool",
-                  "name": "",
-                  "type": "bool"
-                }
-              ],
-              "stateMutability": "view",
               "type": "function"
             },
             {
