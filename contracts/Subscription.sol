@@ -6,22 +6,19 @@ import { ERC5643 } from "./abstracts/ERC5643.sol";
 
 contract Subscription is ISubscription, ERC5643 {
     /*//////////////////////////////////////////////////////////////
-                            PUBLIC CONSTANTS
-    //////////////////////////////////////////////////////////////*/
-
-    /// @notice The default duration for subscriptions, set to 365 days (1 year).
-    uint64 public constant DEFAULT_SUBSCRIPTION_DURATION = 365 days;
-
-    /*//////////////////////////////////////////////////////////////
                              PRIVATE STORAGE
     //////////////////////////////////////////////////////////////*/
 
+    /// @notice A boolean value indicating whether the subscription can be renewed
     bool private _renewable;
 
     /*//////////////////////////////////////////////////////////////
                                CONSTRUCTOR
     //////////////////////////////////////////////////////////////*/
 
+    /// @param cre8orsNFT_ The address of the cre8orsNFT contract.
+    /// @param minRenewalDuration_ The minimum duration allowed for subscription renewal, can be zero.
+    /// @param pricePerSecond_ The price per second for the subscription, can be zero.
     constructor(
         address cre8orsNFT_,
         uint64 minRenewalDuration_,
@@ -35,19 +32,17 @@ contract Subscription is ISubscription, ERC5643 {
     //////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc ISubscription
-    function isSubscriptionValid(uint256 tokenId) public view override returns (bool) {
-        return expiresAt(tokenId) > block.timestamp;
-    }
-
-    /// @inheritdoc ISubscription
-    function validateSubscription(uint256 tokenId) public view override returns (bool) {
+    function checkSubscription(uint256 tokenId) external view override {
         bool isValid = isSubscriptionValid(tokenId);
 
         if (!isValid) {
             revert InvalidSubscription();
         }
+    }
 
-        return isValid;
+    /// @inheritdoc ISubscription
+    function isSubscriptionValid(uint256 tokenId) public view override returns (bool) {
+        return expiresAt(tokenId) > block.timestamp;
     }
 
     /*//////////////////////////////////////////////////////////////
@@ -59,6 +54,7 @@ contract Subscription is ISubscription, ERC5643 {
     /// @param renewable Boolean flag to indicate if subscriptions are renewable.
     function setRenewable(address target, bool renewable) external onlyAdmin(target) {
         _renewable = renewable;
+        emit RenewableUpdate(renewable);
     }
 
     /// @notice Sets the minimum duration for subscription renewal.
@@ -66,6 +62,7 @@ contract Subscription is ISubscription, ERC5643 {
     /// @param duration The minimum duration (in seconds) for subscription renewal.
     function setMinRenewalDuration(address target, uint64 duration) external onlyAdmin(target) {
         _setMinimumRenewalDuration(duration);
+        emit MinRenewalDurationUpdate(duration);
     }
 
     /// @notice Sets the maximum duration for subscription renewal.
@@ -73,6 +70,7 @@ contract Subscription is ISubscription, ERC5643 {
     /// @param duration The maximum duration (in seconds) for subscription renewal.
     function setMaxRenewalDuration(address target, uint64 duration) external onlyAdmin(target) {
         _setMaximumRenewalDuration(duration);
+        emit MaxRenewalDurationUpdate(duration);
     }
 
     /*//////////////////////////////////////////////////////////////
