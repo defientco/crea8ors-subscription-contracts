@@ -20,9 +20,7 @@ contract MockNFT is IMockNFT, Ownable, ERC721 {
 
     uint256 public totalSupply;
 
-    constructor(address _subscription) ERC721("", "") {
-        subscription = _subscription;
-    }
+    constructor() ERC721("", "") { }
 
     function mint(address to, uint256 tokenId) public onlyOwner returns (uint256) {
         _mint(to, tokenId);

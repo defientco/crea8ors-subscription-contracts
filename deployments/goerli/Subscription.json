@@ -1,0 +1,912 @@
+{
+  "address": "0x68Da612b94090BC2AC463d33b3594953DffB857d",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "cre8orsNFT_",
+          "type": "address"
+        },
+        {
+          "internalType": "uint64",
+          "name": "minRenewalDuration_",
+          "type": "uint64"
+        },
+        {
+          "internalType": "uint256",
+          "name": "pricePerSecond_",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "Access_MissingOwnerOrApproved",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        }
+      ],
+      "name": "Access_MissingRoleOrAdmin",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Access_OnlyAdmin",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ETHTransferFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InsufficientPayment",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidDuration",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidLength",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidSubscription",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "LengthMismatch",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "RenewalTooLong",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "RenewalTooShort",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "SubscriptionNotRenewable",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ValueCannotBeZero",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newPrice",
+          "type": "uint256"
+        }
+      ],
+      "name": "PricePerSecondUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "expiration",
+          "type": "uint64"
+        }
+      ],
+      "name": "SubscriptionUpdate",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "DEFAULT_SUBSCRIPTION_DURATION",
+      "outputs": [
+        {
+          "internalType": "uint64",
+          "name": "",
+          "type": "uint64"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MINTER_ROLE",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "cancelSubscription",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "cre8orsNFT",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "expiresAt",
+      "outputs": [
+        {
+          "internalType": "uint64",
+          "name": "",
+          "type": "uint64"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "isAdmin",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "isRenewable",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "isSubscriptionValid",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "maxRenewalDuration",
+      "outputs": [
+        {
+          "internalType": "uint64",
+          "name": "",
+          "type": "uint64"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "minRenewalDuration",
+      "outputs": [
+        {
+          "internalType": "uint64",
+          "name": "",
+          "type": "uint64"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pricePerSecond",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint64",
+          "name": "duration",
+          "type": "uint64"
+        }
+      ],
+      "name": "renewSubscription",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        },
+        {
+          "internalType": "uint64",
+          "name": "duration",
+          "type": "uint64"
+        }
+      ],
+      "name": "setMaxRenewalDuration",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        },
+        {
+          "internalType": "uint64",
+          "name": "duration",
+          "type": "uint64"
+        }
+      ],
+      "name": "setMinRenewalDuration",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "newPrice",
+          "type": "uint256"
+        }
+      ],
+      "name": "setPricePerSecond",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "renewable",
+          "type": "bool"
+        }
+      ],
+      "name": "setRenewable",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        },
+        {
+          "internalType": "uint64",
+          "name": "duration",
+          "type": "uint64"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "tokenIds",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "updateSubscription",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        },
+        {
+          "internalType": "uint64",
+          "name": "duration",
+          "type": "uint64"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "updateSubscription",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        },
+        {
+          "internalType": "uint64",
+          "name": "duration",
+          "type": "uint64"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "updateSubscriptionForFree",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        },
+        {
+          "internalType": "uint64",
+          "name": "duration",
+          "type": "uint64"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "tokenIds",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "updateSubscriptionForFree",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "validateSubscription",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        },
+        {
+          "internalType": "address payable",
+          "name": "to",
+          "type": "address"
+        }
+      ],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xeb4cd784fac2690ebb67713f684697b0a2ea5f964a17d00861aeeb4b8534db58",
+  "receipt": {
+    "to": null,
+    "from": "0xde43f899587aaa2Ea6aD243F3d68a5027F2C6a94",
+    "contractAddress": "0x68Da612b94090BC2AC463d33b3594953DffB857d",
+    "transactionIndex": 30,
+    "gasUsed": "1305414",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x15de488ddaac9207091d8d22f9a5a356696f8dcd4f55905c75935a2960221404",
+    "transactionHash": "0xeb4cd784fac2690ebb67713f684697b0a2ea5f964a17d00861aeeb4b8534db58",
+    "logs": [],
+    "blockNumber": 9451136,
+    "cumulativeGasUsed": "5972302",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+    86400,
+    "38580246913"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "505e651642886427083dc08950096a52",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"cre8orsNFT_\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"minRenewalDuration_\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"pricePerSecond_\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"Access_MissingOwnerOrApproved\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"Access_MissingRoleOrAdmin\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Access_OnlyAdmin\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ETHTransferFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InsufficientPayment\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidDuration\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidLength\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidSubscription\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"LengthMismatch\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RenewalTooLong\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RenewalTooShort\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SubscriptionNotRenewable\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ValueCannotBeZero\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newPrice\",\"type\":\"uint256\"}],\"name\":\"PricePerSecondUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\"}],\"name\":\"SubscriptionUpdate\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"DEFAULT_SUBSCRIPTION_DURATION\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MINTER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"cancelSubscription\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cre8orsNFT\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"expiresAt\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"isRenewable\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"isSubscriptionValid\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"maxRenewalDuration\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"minRenewalDuration\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pricePerSecond\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"uint64\",\"name\":\"duration\",\"type\":\"uint64\"}],\"name\":\"renewSubscription\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"duration\",\"type\":\"uint64\"}],\"name\":\"setMaxRenewalDuration\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"duration\",\"type\":\"uint64\"}],\"name\":\"setMinRenewalDuration\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"newPrice\",\"type\":\"uint256\"}],\"name\":\"setPricePerSecond\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"renewable\",\"type\":\"bool\"}],\"name\":\"setRenewable\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"duration\",\"type\":\"uint64\"},{\"internalType\":\"uint256[]\",\"name\":\"tokenIds\",\"type\":\"uint256[]\"}],\"name\":\"updateSubscription\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"duration\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"updateSubscription\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"duration\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"updateSubscriptionForFree\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"duration\",\"type\":\"uint64\"},{\"internalType\":\"uint256[]\",\"name\":\"tokenIds\",\"type\":\"uint256[]\"}],\"name\":\"updateSubscriptionForFree\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"validateSubscription\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"internalType\":\"address payable\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"events\":{\"PricePerSecondUpdated(uint256)\":{\"details\":\"Emitted when the native currency price is updated.\",\"params\":{\"newPrice\":\"The new price per second of the native currency.\"}},\"SubscriptionUpdate(uint256,uint64)\":{\"details\":\"When a subscription is canceled, the expiration value should also be 0.\"}},\"kind\":\"dev\",\"methods\":{\"cancelSubscription(uint256)\":{\"details\":\"Throws if `tokenId` is not a valid NFT\",\"params\":{\"tokenId\":\"The NFT to cancel the subscription for\"}},\"expiresAt(uint256)\":{\"details\":\"Throws if `tokenId` is not a valid NFT\",\"params\":{\"tokenId\":\"The NFT to get the expiration date of\"},\"returns\":{\"_0\":\"The expiration date of the subscription\"}},\"isAdmin(address,address)\":{\"params\":{\"target\":\"The address of the contract implementing the access control\",\"user\":\"The address to check for admin access\"},\"returns\":{\"_0\":\"Whether the address has admin access or not\"}},\"isRenewable(uint256)\":{\"details\":\"Throws if `tokenId` is not a valid NFT\",\"params\":{\"tokenId\":\"The NFT to get the expiration date of\"},\"returns\":{\"_0\":\"The renewability of a the subscription\"}},\"isSubscriptionValid(uint256)\":{\"params\":{\"tokenId\":\"The unique identifier of the NFT token.\"},\"returns\":{\"_0\":\"A boolean indicating if the subscription is valid.\"}},\"renewSubscription(uint256,uint64)\":{\"params\":{\"duration\":\"The number of seconds to extend a subscription for\",\"tokenId\":\"The NFT to renew the subscription for\"}},\"setMaxRenewalDuration(address,uint64)\":{\"details\":\"This function can only be called by the admin.\",\"params\":{\"duration\":\"The maximum duration (in seconds) for subscription renewal.\"}},\"setMinRenewalDuration(address,uint64)\":{\"details\":\"This function can only be called by the admin.\",\"params\":{\"duration\":\"The minimum duration (in seconds) for subscription renewal.\"}},\"setPricePerSecond(address,uint256)\":{\"params\":{\"newPrice\":\"The new price per second to be set.\",\"target\":\"The address of the contract implementing the access control.\"}},\"setRenewable(address,bool)\":{\"details\":\"This function can only be called by the admin.\",\"params\":{\"renewable\":\"Boolean flag to indicate if subscriptions are renewable.\"}},\"supportsInterface(bytes4)\":{\"details\":\"See {IERC165-supportsInterface}.\"},\"updateSubscription(address,uint64,uint256)\":{\"details\":\"This function is meant to be called by the minter when minting the NFT to subscribe.\",\"params\":{\"duration\":\"The duration (in seconds) to extend the subscription for.\",\"target\":\"The address of the contract implementing the access control\",\"tokenId\":\"The unique identifier of the NFT token to be subscribed.\"}},\"updateSubscription(address,uint64,uint256[])\":{\"details\":\"No need to check for `tokenIds.length` as `isRenewalPriceValid` checks duration to not be zero.\",\"params\":{\"duration\":\"The duration (in seconds) to extend the subscription for.\",\"target\":\"The address of the contract implementing the access control\",\"tokenIds\":\"An array of unique identifiers of the NFT tokens to update the subscriptions for.\"}},\"updateSubscriptionForFree(address,uint64,uint256)\":{\"details\":\"This function is meant to be called by the minter when minting the NFT to subscribe.\",\"params\":{\"duration\":\"The duration (in seconds) to extend the subscription for.\",\"target\":\"The address of the contract implementing the access control\",\"tokenId\":\"The unique identifier of the NFT token to be subscribed.\"}},\"updateSubscriptionForFree(address,uint64,uint256[])\":{\"details\":\"This function is meant to be called by the minter when minting the NFT to subscribe.\",\"params\":{\"duration\":\"The duration (in seconds) to extend the subscription for.\",\"target\":\"The address of the contract implementing the access control\",\"tokenIds\":\"An array of unique identifiers of the NFT tokens to update the subscriptions for.\"}},\"validateSubscription(uint256)\":{\"params\":{\"tokenId\":\"The unique identifier of the NFT token.\"},\"returns\":{\"_0\":\"A boolean indicating if the subscription is valid.\"}},\"withdraw(address,address)\":{\"params\":{\"target\":\"The address of the contract implementing the access control.\",\"to\":\"The address to which the native currency should be withdrawn.\"}}},\"version\":1},\"userdoc\":{\"errors\":{\"Access_MissingOwnerOrApproved()\":[{\"notice\":\"Missing the owner role or approved nft access.\"}],\"Access_MissingRoleOrAdmin(bytes32)\":[{\"notice\":\"Missing the given role or admin access\"}],\"Access_OnlyAdmin()\":[{\"notice\":\"Only admin can access this function\"}],\"ETHTransferFailed()\":[{\"notice\":\"Error message for failed ETH transfer.\"}],\"InsufficientPayment()\":[{\"notice\":\"The payment received for the subscription renewal is insufficient.\"}],\"InvalidSubscription()\":[{\"notice\":\"The subscription associated with the provided token ID is invalid or has expired.\"}],\"RenewalTooLong()\":[{\"notice\":\"The duration provided for renewal exceeds the allowed maximum for subscription extension.\"}],\"RenewalTooShort()\":[{\"notice\":\"The duration provided for renewal is too short to extend the subscription.\"}],\"SubscriptionNotRenewable()\":[{\"notice\":\"The subscription associated with the token is not renewable and cannot be extended.\"}],\"ValueCannotBeZero()\":[{\"notice\":\"Error message for zero value.\"}]},\"events\":{\"SubscriptionUpdate(uint256,uint64)\":{\"notice\":\"Emitted when a subscription expiration changes\"}},\"kind\":\"user\",\"methods\":{\"DEFAULT_SUBSCRIPTION_DURATION()\":{\"notice\":\"The default duration for subscriptions, set to 365 days (1 year).\"},\"MINTER_ROLE()\":{\"notice\":\"Access control roles\"},\"cancelSubscription(uint256)\":{\"notice\":\"Cancels the subscription of an NFT\"},\"cre8orsNFT()\":{\"notice\":\"The address of the collection contract that mints and manages the tokens.\"},\"expiresAt(uint256)\":{\"notice\":\"Gets the expiration date of a subscription\"},\"isAdmin(address,address)\":{\"notice\":\"Getter for admin role associated with the contract to handle minting\"},\"isRenewable(uint256)\":{\"notice\":\"Determines whether a subscription can be renewed\"},\"isSubscriptionValid(uint256)\":{\"notice\":\"Returns whether the subscription for the given `tokenId` is valid.\"},\"maxRenewalDuration()\":{\"notice\":\"The maximum duration allowed for subscription renewal. A value of 0 means lifetime extension is allowed.\"},\"minRenewalDuration()\":{\"notice\":\"The minimum duration allowed for subscription renewal.\"},\"pricePerSecond()\":{\"notice\":\"The price per second for the subscription in native currency.\"},\"renewSubscription(uint256,uint64)\":{\"notice\":\"Renews the subscription to an NFT Throws if `tokenId` is not a valid NFT\"},\"setMaxRenewalDuration(address,uint64)\":{\"notice\":\"Sets the maximum duration for subscription renewal.\"},\"setMinRenewalDuration(address,uint64)\":{\"notice\":\"Sets the minimum duration for subscription renewal.\"},\"setPricePerSecond(address,uint256)\":{\"notice\":\"Sets the price per second of the native currency.\"},\"setRenewable(address,bool)\":{\"notice\":\"Sets the renewability status of subscriptions.\"},\"updateSubscription(address,uint64,uint256)\":{\"notice\":\"Extends the subscription for the given `tokenId` with a specified `duration`, using native currency as payment.\"},\"updateSubscription(address,uint64,uint256[])\":{\"notice\":\"Extends the subscription for the given `tokenIds` with a specified `duration`, using native currency as payment.\"},\"updateSubscriptionForFree(address,uint64,uint256)\":{\"notice\":\"Extends the subscription for the given `tokenId` with a specified `duration` for free.\"},\"updateSubscriptionForFree(address,uint64,uint256[])\":{\"notice\":\"Extends the subscription for the given `tokenIds` with a specified `duration` for free.\"},\"validateSubscription(uint256)\":{\"notice\":\"Validates the subscription for the given `tokenId`. Throws if `tokenId` subscription has expired.\"},\"withdraw(address,address)\":{\"notice\":\"Withdraws the native currency from the contract to the specified address.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Subscription.sol\":\"Subscription\"},\"evmVersion\":\"paris\",\"libraries\":{\":__CACHE_BREAKER__\":\"0x00000000d41867734bbee4c6863d9255b2b06ac1\"},\"metadata\":{\"bytecodeHash\":\"none\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":@crea8ors/=lib/CR8ORS_DROP_CONTRACT/src/\",\":@openzeppelin/=lib/openzeppelin-contracts/\",\":CR8ORS_DROP_CONTRACT/=lib/CR8ORS_DROP_CONTRACT/src/\",\":ERC6551/=lib/CR8ORS_DROP_CONTRACT/lib/ERC6551/\",\":ERC721A-Upgradeable/=lib/CR8ORS_DROP_CONTRACT/lib/ERC721A-Upgradeable/contracts/\",\":ERC721A/=lib/CR8ORS_DROP_CONTRACT/lib/ERC721A/contracts/\",\":account-abstraction/=lib/CR8ORS_DROP_CONTRACT/lib/account-abstraction/contracts/\",\":creator-token-contracts/=lib/CR8ORS_DROP_CONTRACT/lib/creator-token-contracts/contracts/\",\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/\",\":forge-std/=lib/forge-std/src/\",\":murky/=lib/CR8ORS_DROP_CONTRACT/lib/creator-token-contracts/lib/murky/src/\",\":openzeppelin-contracts-upgradeable/=lib/CR8ORS_DROP_CONTRACT/lib/openzeppelin-contracts-upgradeable/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\",\":reference/=lib/CR8ORS_DROP_CONTRACT/lib/tokenbound/lib/reference/\",\":src/=src/\",\":tokenbound/=lib/CR8ORS_DROP_CONTRACT/lib/tokenbound/\",\"lib/CR8ORS_DROP_CONTRACT:@openzeppelin/=lib/CR8ORS_DROP_CONTRACT/lib/openzeppelin-contracts/\",\"lib/CR8ORS_DROP_CONTRACT:@openzeppelin/contracts-upgradeable/=lib/CR8ORS_DROP_CONTRACT/lib/openzeppelin-contracts-upgradeable/contracts/\",\"lib/CR8ORS_DROP_CONTRACT:@openzeppelin/contracts/=lib/CR8ORS_DROP_CONTRACT/lib/openzeppelin-contracts/contracts/\",\"lib/CR8ORS_DROP_CONTRACT:ERC6551/=lib/CR8ORS_DROP_CONTRACT/lib/ERC6551/\",\"lib/CR8ORS_DROP_CONTRACT:ERC721A-Upgradeable/=lib/CR8ORS_DROP_CONTRACT/lib/ERC721A-Upgradeable/contracts/\",\"lib/CR8ORS_DROP_CONTRACT:ERC721A/=lib/CR8ORS_DROP_CONTRACT/lib/ERC721A/contracts/\",\"lib/CR8ORS_DROP_CONTRACT:ERC721C/=lib/CR8ORS_DROP_CONTRACT/lib/creator-token-contracts/contracts/\",\"lib/CR8ORS_DROP_CONTRACT:account-abstraction/=lib/CR8ORS_DROP_CONTRACT/lib/account-abstraction/contracts/\",\"lib/CR8ORS_DROP_CONTRACT:creator-token-contracts/=lib/CR8ORS_DROP_CONTRACT/lib/creator-token-contracts/contracts/\",\"lib/CR8ORS_DROP_CONTRACT:ds-test/=lib/CR8ORS_DROP_CONTRACT/lib/forge-std/lib/ds-test/src/\",\"lib/CR8ORS_DROP_CONTRACT:erc4626-tests/=lib/CR8ORS_DROP_CONTRACT/lib/openzeppelin-contracts/lib/erc4626-tests/\",\"lib/CR8ORS_DROP_CONTRACT:erc6551/=lib/CR8ORS_DROP_CONTRACT/lib/tokenbound/lib/reference/src/\",\"lib/CR8ORS_DROP_CONTRACT:erc721a/=lib/CR8ORS_DROP_CONTRACT/lib/ERC721A/\",\"lib/CR8ORS_DROP_CONTRACT:forge-std/=lib/CR8ORS_DROP_CONTRACT/lib/forge-std/src/\",\"lib/CR8ORS_DROP_CONTRACT:murky/=lib/CR8ORS_DROP_CONTRACT/lib/creator-token-contracts/lib/murky/src/\",\"lib/CR8ORS_DROP_CONTRACT:openzeppelin-contracts-upgradeable/=lib/CR8ORS_DROP_CONTRACT/lib/openzeppelin-contracts-upgradeable/\",\"lib/CR8ORS_DROP_CONTRACT:openzeppelin-contracts/=lib/CR8ORS_DROP_CONTRACT/lib/openzeppelin-contracts/contracts/\",\"lib/CR8ORS_DROP_CONTRACT:reference/=lib/CR8ORS_DROP_CONTRACT/lib/tokenbound/lib/reference/\",\"lib/CR8ORS_DROP_CONTRACT:sstore2/=lib/CR8ORS_DROP_CONTRACT/lib/ERC6551/lib/sstore2/contracts/\",\"lib/CR8ORS_DROP_CONTRACT:tokenbound/=lib/CR8ORS_DROP_CONTRACT/lib/tokenbound/\",\"lib/forge-std:ds-test/=lib/forge-std/lib/ds-test/src/\",\"lib/openzeppelin-contracts:ds-test/=lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/\",\"lib/openzeppelin-contracts:erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/\",\"lib/openzeppelin-contracts:forge-std/=lib/openzeppelin-contracts/lib/forge-std/src/\",\"lib/openzeppelin-contracts:openzeppelin/=lib/openzeppelin-contracts/contracts/\"]},\"sources\":{\"contracts/Subscription.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.19;\\n\\nimport { ISubscription } from \\\"./interfaces/ISubscription.sol\\\";\\nimport { ERC5643 } from \\\"./abstracts/ERC5643.sol\\\";\\n\\ncontract Subscription is ISubscription, ERC5643 {\\n    /*//////////////////////////////////////////////////////////////\\n                            PUBLIC CONSTANTS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @notice The default duration for subscriptions, set to 365 days (1 year).\\n    uint64 public constant DEFAULT_SUBSCRIPTION_DURATION = 365 days;\\n\\n    /*//////////////////////////////////////////////////////////////\\n                             PRIVATE STORAGE\\n    //////////////////////////////////////////////////////////////*/\\n\\n    bool private _renewable;\\n\\n    /*//////////////////////////////////////////////////////////////\\n                               CONSTRUCTOR\\n    //////////////////////////////////////////////////////////////*/\\n\\n    constructor(\\n        address cre8orsNFT_,\\n        uint64 minRenewalDuration_,\\n        uint256 pricePerSecond_\\n    )\\n        ERC5643(cre8orsNFT_, minRenewalDuration_, pricePerSecond_)\\n    { }\\n\\n    /*//////////////////////////////////////////////////////////////\\n                     USER-FACING CONSTANT FUNCTIONS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @inheritdoc ISubscription\\n    function isSubscriptionValid(uint256 tokenId) public view override returns (bool) {\\n        return expiresAt(tokenId) > block.timestamp;\\n    }\\n\\n    /// @inheritdoc ISubscription\\n    function validateSubscription(uint256 tokenId) public view override returns (bool) {\\n        bool isValid = isSubscriptionValid(tokenId);\\n\\n        if (!isValid) {\\n            revert InvalidSubscription();\\n        }\\n\\n        return isValid;\\n    }\\n\\n    /*//////////////////////////////////////////////////////////////\\n                    ONLY-ADMIN NON-CONSTANT FUNCTIONS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @notice Sets the renewability status of subscriptions.\\n    /// @dev This function can only be called by the admin.\\n    /// @param renewable Boolean flag to indicate if subscriptions are renewable.\\n    function setRenewable(address target, bool renewable) external onlyAdmin(target) {\\n        _renewable = renewable;\\n    }\\n\\n    /// @notice Sets the minimum duration for subscription renewal.\\n    /// @dev This function can only be called by the admin.\\n    /// @param duration The minimum duration (in seconds) for subscription renewal.\\n    function setMinRenewalDuration(address target, uint64 duration) external onlyAdmin(target) {\\n        _setMinimumRenewalDuration(duration);\\n    }\\n\\n    /// @notice Sets the maximum duration for subscription renewal.\\n    /// @dev This function can only be called by the admin.\\n    /// @param duration The maximum duration (in seconds) for subscription renewal.\\n    function setMaxRenewalDuration(address target, uint64 duration) external onlyAdmin(target) {\\n        _setMaximumRenewalDuration(duration);\\n    }\\n\\n    /*//////////////////////////////////////////////////////////////\\n               ONLY-ADMIN-OR-MINTER NON-CONSTANT FUNCTIONS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /*//////////   updateSubscriptionForFree variants   //////////*/\\n\\n    /// @inheritdoc ISubscription\\n    function updateSubscriptionForFree(\\n        address target,\\n        uint64 duration,\\n        uint256 tokenId\\n    )\\n        external\\n        override\\n        onlyRoleOrAdmin(target, MINTER_ROLE)\\n        isDurationBetweenMinAndMax(duration)\\n    {\\n        _updateSubscriptionExpiration(tokenId, duration);\\n    }\\n\\n    /// @inheritdoc ISubscription\\n    function updateSubscriptionForFree(\\n        address target,\\n        uint64 duration,\\n        uint256[] calldata tokenIds\\n    )\\n        external\\n        override\\n        onlyRoleOrAdmin(target, MINTER_ROLE)\\n        isDurationBetweenMinAndMax(duration)\\n    {\\n        uint256 tokenId;\\n\\n        for (uint256 i = 0; i < tokenIds.length;) {\\n            tokenId = tokenIds[i];\\n\\n            _updateSubscriptionExpiration(tokenId, duration);\\n\\n            unchecked {\\n                ++i;\\n            }\\n        }\\n    }\\n\\n    /*//////////////   updateSubscription variants   /////////////*/\\n\\n    /// @inheritdoc ISubscription\\n    function updateSubscription(\\n        address target,\\n        uint64 duration,\\n        uint256 tokenId\\n    )\\n        external\\n        payable\\n        override\\n        onlyRoleOrAdmin(target, MINTER_ROLE)\\n        isDurationBetweenMinAndMax(duration)\\n        isRenewalPriceValid(msg.value, duration)\\n    {\\n        // extend subscription\\n        _updateSubscriptionExpiration(tokenId, duration);\\n    }\\n\\n    /// @inheritdoc ISubscription\\n    /// @dev No need to check for `tokenIds.length` as `isRenewalPriceValid` checks duration to not be zero.\\n    function updateSubscription(\\n        address target,\\n        uint64 duration,\\n        uint256[] calldata tokenIds\\n    )\\n        external\\n        payable\\n        override\\n        onlyRoleOrAdmin(target, MINTER_ROLE)\\n        isDurationBetweenMinAndMax(duration)\\n        isRenewalPriceValid(msg.value, uint64(tokenIds.length * duration))\\n    {\\n        uint256 tokenId;\\n\\n        for (uint256 i = 0; i < tokenIds.length;) {\\n            tokenId = tokenIds[i];\\n\\n            _updateSubscriptionExpiration(tokenId, duration);\\n\\n            unchecked {\\n                ++i;\\n            }\\n        }\\n    }\\n\\n    /*//////////////////////////////////////////////////////////////\\n                       INTERNAL CONSTANT FUNCTIONS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @inheritdoc ERC5643\\n    function _isRenewable() internal view override returns (bool) {\\n        return _renewable;\\n    }\\n\\n    /// @inheritdoc ERC5643\\n    function _getRenewalPrice(uint64 duration) internal view override returns (uint256) {\\n        return duration * pricePerSecond;\\n    }\\n}\\n\",\"keccak256\":\"0x98946f03d2f52dddf416bb2be0ad8f86601b17b581db64fbb635952041b720b4\",\"license\":\"MIT\"},\"contracts/abstracts/Admin.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.19;\\n\\nimport { IERC721Drop } from \\\"@crea8ors/interfaces/IERC721Drop.sol\\\";\\nimport { IAccessControl } from \\\"@openzeppelin/contracts/access/IAccessControl.sol\\\";\\n\\n/// @title Admin\\n/// @notice An abstract contract with access control functionality.\\nabstract contract Admin {\\n    /// @notice Access control roles\\n    bytes32 public constant MINTER_ROLE = keccak256(\\\"MINTER\\\");\\n\\n    /// @notice Modifier to allow only users with admin access\\n    /// @param target The address of the contract implementing the access control\\n    modifier onlyAdmin(address target) {\\n        if (!isAdmin(target, msg.sender)) {\\n            revert IERC721Drop.Access_OnlyAdmin();\\n        }\\n\\n        _;\\n    }\\n\\n    /// @notice Modifier to allow only a given role or admin access\\n    /// @param target The address of the contract implementing the access control\\n    /// @param role The role to check for alongside the admin role\\n    modifier onlyRoleOrAdmin(address target, bytes32 role) {\\n        if (!isAdmin(target, msg.sender) && !IAccessControl(target).hasRole(role, msg.sender)) {\\n            revert IERC721Drop.Access_MissingRoleOrAdmin(role);\\n        }\\n\\n        _;\\n    }\\n\\n    /// @notice Getter for admin role associated with the contract to handle minting\\n    /// @param target The address of the contract implementing the access control\\n    /// @param user The address to check for admin access\\n    /// @return Whether the address has admin access or not\\n    function isAdmin(address target, address user) public view returns (bool) {\\n        return IERC721Drop(target).isAdmin(user);\\n    }\\n}\\n\",\"keccak256\":\"0x8d4d84f74244fff014a5f1225bfb02457a6c581dff11e2973b184f14ee3c2fc7\",\"license\":\"MIT\"},\"contracts/abstracts/ERC5643.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.19;\\n\\nimport { IERC721 } from \\\"@openzeppelin/contracts/token/ERC721/IERC721.sol\\\";\\nimport { IERC5643 } from \\\"../interfaces/IERC5643.sol\\\";\\nimport { PaymentSystem } from \\\"../abstracts/PaymentSystem.sol\\\";\\nimport { IERC721Drop } from \\\"@crea8ors/interfaces/IERC721Drop.sol\\\";\\n\\n/// @title ERC5643\\n/// @notice An abstract contract implementing the IERC5643 interface for managing subscriptions to ERC721 tokens.\\nabstract contract ERC5643 is IERC5643, PaymentSystem {\\n    /*//////////////////////////////////////////////////////////////\\n                             PRIVATE STORAGE\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @notice Mapping to store the expiration timestamps for each tokenId representing an active subscription.\\n    mapping(uint256 tokenId => uint64 expiresAt) private _expirations;\\n\\n    /*//////////////////////////////////////////////////////////////\\n                             PUBLIC STORAGE\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @notice The minimum duration allowed for subscription renewal.\\n    uint64 public minRenewalDuration;\\n\\n    /// @notice The maximum duration allowed for subscription renewal. A value of 0 means lifetime extension is allowed.\\n    uint64 public maxRenewalDuration; // 0 value means lifetime extension\\n\\n    ///@notice The address of the collection contract that mints and manages the tokens.\\n    address public cre8orsNFT;\\n\\n    /*//////////////////////////////////////////////////////////////\\n                                MODIFIERS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    modifier onlyApprovedOrOwner(address spender, uint256 tokenId) {\\n        if (!_isApprovedOrOwner(spender, tokenId)) {\\n            revert IERC721Drop.Access_MissingOwnerOrApproved();\\n        }\\n\\n        _;\\n    }\\n\\n    modifier isDurationBetweenMinAndMax(uint64 duration) {\\n        if (duration < minRenewalDuration) {\\n            revert RenewalTooShort();\\n        } else if (maxRenewalDuration != 0 && duration > maxRenewalDuration) {\\n            revert RenewalTooLong();\\n        }\\n\\n        _;\\n    }\\n\\n    modifier isRenewalPriceValid(uint256 value, uint64 duration) {\\n        if (duration == 0) {\\n            revert InvalidDuration();\\n        }\\n\\n        if (value < _getRenewalPrice(duration)) {\\n            revert InsufficientPayment();\\n        }\\n\\n        _;\\n    }\\n\\n    /*//////////////////////////////////////////////////////////////\\n                               CONSTRUCTOR\\n    //////////////////////////////////////////////////////////////*/\\n\\n    constructor(\\n        address cre8orsNFT_,\\n        uint64 minRenewalDuration_,\\n        uint256 pricePerSecond_\\n    )\\n        PaymentSystem(pricePerSecond_)\\n    {\\n        cre8orsNFT = cre8orsNFT_;\\n        minRenewalDuration = minRenewalDuration_;\\n    }\\n\\n    /*//////////////////////////////////////////////////////////////\\n                     USER-FACING CONSTANT FUNCTIONS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @inheritdoc IERC5643\\n    function isRenewable(uint256 /*tokenId*/ ) external view virtual override returns (bool) {\\n        return _isRenewable();\\n    }\\n\\n    /// @inheritdoc IERC5643\\n    function expiresAt(uint256 tokenId) public view virtual override returns (uint64) {\\n        return _expirations[tokenId];\\n    }\\n\\n    /// @dev See {IERC165-supportsInterface}.\\n    function supportsInterface(bytes4 interfaceId) public view virtual returns (bool) {\\n        return interfaceId == type(IERC5643).interfaceId || IERC721(cre8orsNFT).supportsInterface(interfaceId);\\n    }\\n\\n    /*//////////////////////////////////////////////////////////////\\n                   USER-FACING NON-CONSTANT FUNCTIONS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @inheritdoc IERC5643\\n    function renewSubscription(\\n        uint256 tokenId,\\n        uint64 duration\\n    )\\n        external\\n        payable\\n        virtual\\n        override\\n        onlyApprovedOrOwner(msg.sender, tokenId)\\n        isDurationBetweenMinAndMax(duration)\\n        isRenewalPriceValid(msg.value, duration)\\n    {\\n        // extend subscription\\n        _updateSubscriptionExpiration(tokenId, duration);\\n    }\\n\\n    /// @inheritdoc IERC5643\\n    function cancelSubscription(uint256 tokenId)\\n        external\\n        payable\\n        virtual\\n        override\\n        onlyApprovedOrOwner(msg.sender, tokenId)\\n    {\\n        delete _expirations[tokenId];\\n\\n        emit SubscriptionUpdate(tokenId, 0);\\n    }\\n\\n    /*//////////////////////////////////////////////////////////////\\n                       INTERNAL CONSTANT FUNCTIONS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @notice Checks whether the subscription is renewable.\\n    /// @dev This Internal function should be implemented in derived contracts to determine if renewability should be\\n    /// disabled for all or some tokens.\\n    /// @return A boolean value indicating whether the subscription can be renewed (true) or not (false).\\n    function _isRenewable() internal view virtual returns (bool);\\n\\n    /// @notice Gets the price to renew a subscription for a specified `duration` in seconds.\\n    /// @dev This Internal function should be implemented in derived contracts to calculate the renewal price for the\\n    /// subscription.\\n    /// @param duration The duration (in seconds) for which the subscription is to be extended.\\n    /// @return The price (in native currency) required to renew the subscription for the given duration.\\n    function _getRenewalPrice(uint64 duration) internal view virtual returns (uint256);\\n\\n    /*//////////////////////////////////////////////////////////////\\n                     INTERNAL NON-CONSTANT FUNCTIONS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @notice Updates the expiration timestamp for a subscription represented by the given `tokenId`.\\n    /// @dev this function won't check that the tokenId is valid, responsibility is delegated to the caller.\\n    /// @param tokenId The unique identifier of the subscription token.\\n    /// @param duration The duration (in seconds) to extend the subscription from the current timestamp.\\n    function _updateSubscriptionExpiration(uint256 tokenId, uint64 duration) internal virtual {\\n        uint64 currentExpiration = _expirations[tokenId];\\n        uint64 newExpiration;\\n\\n        // Check if the current subscription is new or has expired\\n        if ((currentExpiration == 0) || (currentExpiration < block.timestamp)) {\\n            newExpiration = uint64(block.timestamp) + duration;\\n        } else {\\n            // If current subscription not expired (extend)\\n            if (!_isRenewable()) {\\n                revert SubscriptionNotRenewable();\\n            }\\n            newExpiration = currentExpiration + duration;\\n        }\\n\\n        _expirations[tokenId] = newExpiration;\\n\\n        emit SubscriptionUpdate(tokenId, newExpiration);\\n    }\\n\\n    /// @dev Internal function to set the minimum renewal duration.\\n    /// @param duration The new minimum renewal duration (in seconds).\\n    function _setMinimumRenewalDuration(uint64 duration) internal virtual {\\n        minRenewalDuration = duration;\\n    }\\n\\n    /// @dev Internal function to set the maximum renewal duration.\\n    /// @param duration The new maximum renewal duration (in seconds).\\n    function _setMaximumRenewalDuration(uint64 duration) internal virtual {\\n        maxRenewalDuration = duration;\\n    }\\n\\n    /// @notice Requires that spender owns or is approved for the token.\\n    function _isApprovedOrOwner(address spender, uint256 tokenId) internal view virtual returns (bool) {\\n        address cre8orsNFT_ = cre8orsNFT;\\n        address owner = IERC721(cre8orsNFT_).ownerOf(tokenId);\\n        return (\\n            spender == owner || IERC721(cre8orsNFT_).isApprovedForAll(owner, spender)\\n                || IERC721(cre8orsNFT_).getApproved(tokenId) == spender\\n        );\\n    }\\n}\\n\",\"keccak256\":\"0x7276c225584d9a40c85520cf11008d85daa993fdc66897133913aea37c7f238f\",\"license\":\"MIT\"},\"contracts/abstracts/PaymentSystem.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.19;\\n\\nimport { IPaymentSystem } from \\\"../interfaces/IPaymentSystem.sol\\\";\\nimport { Admin } from \\\"./Admin.sol\\\";\\n\\nabstract contract PaymentSystem is IPaymentSystem, Admin {\\n    /// @notice The price per second for the subscription in native currency.\\n    uint256 public pricePerSecond;\\n\\n    constructor(uint256 pricePerSecond_) {\\n        pricePerSecond = pricePerSecond_;\\n    }\\n\\n    /// @inheritdoc IPaymentSystem\\n    function setPricePerSecond(address target, uint256 newPrice) external override onlyAdmin(target) {\\n        pricePerSecond = newPrice;\\n        emit PricePerSecondUpdated(newPrice);\\n    }\\n\\n    /// @inheritdoc IPaymentSystem\\n    function withdraw(address target, address payable to) external override onlyAdmin(target) {\\n        uint256 amount = address(this).balance;\\n        if (amount == 0) revert ValueCannotBeZero();\\n\\n        (bool success,) = to.call{ value: amount }(\\\"\\\");\\n        if (!success) revert ETHTransferFailed();\\n    }\\n}\\n\",\"keccak256\":\"0xdba750158c7da8438cac89bf38d0f536dcefd091ef606812134cfd3b365884d8\",\"license\":\"MIT\"},\"contracts/interfaces/IERC5643.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.19;\\n\\n/// @title IERC5643\\n/// @notice https://eips.ethereum.org/EIPS/eip-5643\\n/// @dev type(IERC5643).interfaceId should return 0x8c65f84d\\ninterface IERC5643 {\\n    /*//////////////////////////////////////////////////////////////\\n                             ERRORS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @notice The duration provided for renewal is too short to extend the subscription.\\n    error RenewalTooShort();\\n\\n    /// @notice The duration provided for renewal exceeds the allowed maximum for subscription extension.\\n    error RenewalTooLong();\\n\\n    /// @notice The payment received for the subscription renewal is insufficient.\\n    error InsufficientPayment();\\n\\n    /// @notice The subscription associated with the token is not renewable and cannot be extended.\\n    error SubscriptionNotRenewable();\\n\\n    error InvalidDuration();\\n\\n    /*//////////////////////////////////////////////////////////////\\n                                 EVENTS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @notice Emitted when a subscription expiration changes\\n    /// @dev When a subscription is canceled, the expiration value should also be 0.\\n    event SubscriptionUpdate(uint256 indexed tokenId, uint64 expiration);\\n\\n    /*//////////////////////////////////////////////////////////////\\n                           CONSTANT FUNCTIONS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @notice Gets the expiration date of a subscription\\n    /// @dev Throws if `tokenId` is not a valid NFT\\n    /// @param tokenId The NFT to get the expiration date of\\n    /// @return The expiration date of the subscription\\n    function expiresAt(uint256 tokenId) external view returns (uint64);\\n\\n    /// @notice Determines whether a subscription can be renewed\\n    /// @dev Throws if `tokenId` is not a valid NFT\\n    /// @param tokenId The NFT to get the expiration date of\\n    /// @return The renewability of a the subscription\\n    function isRenewable(uint256 tokenId) external view returns (bool);\\n\\n    /*//////////////////////////////////////////////////////////////\\n                         NON-CONSTANT FUNCTIONS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @notice Renews the subscription to an NFT\\n    /// Throws if `tokenId` is not a valid NFT\\n    /// @param tokenId The NFT to renew the subscription for\\n    /// @param duration The number of seconds to extend a subscription for\\n    function renewSubscription(uint256 tokenId, uint64 duration) external payable;\\n\\n    /// @notice Cancels the subscription of an NFT\\n    /// @dev Throws if `tokenId` is not a valid NFT\\n    /// @param tokenId The NFT to cancel the subscription for\\n    function cancelSubscription(uint256 tokenId) external payable;\\n}\\n\",\"keccak256\":\"0x6f3edd3b73ab755df3e118b2d7cb29cc275a9b2e9ca1118c6b604f0e44535846\",\"license\":\"MIT\"},\"contracts/interfaces/IPaymentSystem.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.19;\\n\\n/// @title Payment System Interface\\n/// @notice An interface for the PaymentSystem contract.\\ninterface IPaymentSystem {\\n    /// @notice Error message for zero value.\\n    error ValueCannotBeZero();\\n\\n    /// @notice Error message for failed ETH transfer.\\n    error ETHTransferFailed();\\n\\n    /// @dev Emitted when the native currency price is updated.\\n    /// @param newPrice The new price per second of the native currency.\\n    event PricePerSecondUpdated(uint256 newPrice);\\n\\n    /// @notice Sets the price per second of the native currency.\\n    /// @param target The address of the contract implementing the access control.\\n    /// @param newPrice The new price per second to be set.\\n    function setPricePerSecond(address target, uint256 newPrice) external;\\n\\n    /// @notice Withdraws the native currency from the contract to the specified address.\\n    /// @param target The address of the contract implementing the access control.\\n    /// @param to The address to which the native currency should be withdrawn.\\n    function withdraw(address target, address payable to) external;\\n}\\n\",\"keccak256\":\"0x45ff49b1831557194bd2903a4db5d6d7a45fdebd9ca87a8481ef87d4f099734d\",\"license\":\"MIT\"},\"contracts/interfaces/ISubscription.sol\":{\"content\":\"/// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.19;\\n\\n/// @title ISubscription\\n/// @dev Interface for managing subscriptions to NFTs.\\ninterface ISubscription {\\n    /*//////////////////////////////////////////////////////////////\\n                                 ERRORS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @notice The subscription associated with the provided token ID is invalid or has expired.\\n    error InvalidSubscription();\\n\\n    error LengthMismatch();\\n\\n    error InvalidLength();\\n\\n    /*//////////////////////////////////////////////////////////////\\n                                 EVENTS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /*//////////////////////////////////////////////////////////////\\n                           CONSTANT FUNCTIONS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /// @notice Returns whether the subscription for the given `tokenId` is valid.\\n    /// @param tokenId The unique identifier of the NFT token.\\n    /// @return A boolean indicating if the subscription is valid.\\n    function isSubscriptionValid(uint256 tokenId) external view returns (bool);\\n\\n    /// @notice Validates the subscription for the given `tokenId`.\\n    /// Throws if `tokenId` subscription has expired.\\n    /// @param tokenId The unique identifier of the NFT token.\\n    /// @return A boolean indicating if the subscription is valid.\\n    function validateSubscription(uint256 tokenId) external view returns (bool);\\n\\n    /*//////////////////////////////////////////////////////////////\\n                         NON-CONSTANT FUNCTIONS\\n    //////////////////////////////////////////////////////////////*/\\n\\n    /*//////////   updateSubscriptionForFree variants   //////////*/\\n\\n    /// @notice Extends the subscription for the given `tokenId` with a specified `duration` for free.\\n    /// @dev This function is meant to be called by the minter when minting the NFT to subscribe.\\n    /// @param target The address of the contract implementing the access control\\n    /// @param duration The duration (in seconds) to extend the subscription for.\\n    /// @param tokenId The unique identifier of the NFT token to be subscribed.\\n    function updateSubscriptionForFree(address target, uint64 duration, uint256 tokenId) external;\\n\\n    /// @notice Extends the subscription for the given `tokenIds` with a specified `duration` for free.\\n    /// @dev This function is meant to be called by the minter when minting the NFT to subscribe.\\n    /// @param target The address of the contract implementing the access control\\n    /// @param duration The duration (in seconds) to extend the subscription for.\\n    /// @param tokenIds An array of unique identifiers of the NFT tokens to update the subscriptions for.\\n    function updateSubscriptionForFree(address target, uint64 duration, uint256[] calldata tokenIds) external;\\n\\n    /*//////////////   updateSubscription variants   /////////////*/\\n\\n    /// @notice Extends the subscription for the given `tokenId` with a specified `duration`, using native currency as\\n    /// payment.\\n    /// @dev This function is meant to be called by the minter when minting the NFT to subscribe.\\n    /// @param target The address of the contract implementing the access control\\n    /// @param duration The duration (in seconds) to extend the subscription for.\\n    /// @param tokenId The unique identifier of the NFT token to be subscribed.\\n    function updateSubscription(address target, uint64 duration, uint256 tokenId) external payable;\\n\\n    /// @notice Extends the subscription for the given `tokenIds` with a specified `duration`, using native currency as\\n    /// payment.\\n    /// @dev This function is meant to be called by the minter when minting the NFT to subscribe.\\n    /// @param target The address of the contract implementing the access control\\n    /// @param duration The duration (in seconds) to extend the subscription for.\\n    /// @param tokenIds An array of unique identifiers of the NFT tokens to update the subscriptions for.\\n    function updateSubscription(address target, uint64 duration, uint256[] calldata tokenIds) external payable;\\n}\\n\",\"keccak256\":\"0xee803de88b897b555636ae610836b144df89fd3f747d41b24ddfc57662f2599c\",\"license\":\"MIT\"},\"lib/CR8ORS_DROP_CONTRACT/src/interfaces/IERC721Drop.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.15;\\n\\nimport {IMetadataRenderer} from \\\"../interfaces/IMetadataRenderer.sol\\\";\\n\\n/**\\n \\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557 \\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557 \\u2588\\u2588\\u2588\\u2588\\u2588\\u2557  \\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557 \\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557 \\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\n\\u2588\\u2588\\u2554\\u2550\\u2550\\u2550\\u2550\\u255d\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2554\\u2550\\u2550\\u2550\\u2550\\u255d\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2554\\u2550\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2554\\u2550\\u2550\\u2550\\u2550\\u255d\\n\\u2588\\u2588\\u2551     \\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2554\\u255d\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557  \\u255a\\u2588\\u2588\\u2588\\u2588\\u2588\\u2554\\u255d\\u2588\\u2588\\u2551   \\u2588\\u2588\\u2551\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2554\\u255d\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\n\\u2588\\u2588\\u2551     \\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2554\\u2550\\u2550\\u255d  \\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2551   \\u2588\\u2588\\u2551\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u255a\\u2550\\u2550\\u2550\\u2550\\u2588\\u2588\\u2551\\n\\u255a\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2588\\u2588\\u2551  \\u2588\\u2588\\u2551\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u255a\\u2588\\u2588\\u2588\\u2588\\u2588\\u2554\\u255d\\u255a\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2554\\u255d\\u2588\\u2588\\u2551  \\u2588\\u2588\\u2551\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2551\\n \\u255a\\u2550\\u2550\\u2550\\u2550\\u2550\\u255d\\u255a\\u2550\\u255d  \\u255a\\u2550\\u255d\\u255a\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u255d \\u255a\\u2550\\u2550\\u2550\\u2550\\u255d  \\u255a\\u2550\\u2550\\u2550\\u2550\\u2550\\u255d \\u255a\\u2550\\u255d  \\u255a\\u2550\\u255d\\u255a\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u255d                                                       \\n*/\\n/// @notice Interface for Cre8ors Drop contract\\ninterface IERC721Drop {\\n    // Access errors\\n\\n    /// @notice Only admin can access this function\\n    error Access_OnlyAdmin();\\n    /// @notice Missing the given role or admin access\\n    error Access_MissingRoleOrAdmin(bytes32 role);\\n    /// @notice Withdraw is not allowed by this user\\n    error Access_WithdrawNotAllowed();\\n    /// @notice Cannot withdraw funds due to ETH send failure.\\n    error Withdraw_FundsSendFailure();\\n    /// @notice Missing the owner role.\\n    error Access_OnlyOwner();\\n    /// @notice Missing the owner role or approved nft access.\\n    error Access_MissingOwnerOrApproved();\\n\\n    // Sale/Purchase errors\\n    /// @notice Sale is inactive\\n    error Sale_Inactive();\\n    /// @notice Presale is inactive\\n    error Presale_Inactive();\\n    /// @notice Presale merkle root is invalid\\n    error Presale_MerkleNotApproved();\\n    /// @notice Wrong price for purchase\\n    error Purchase_WrongPrice(uint256 correctPrice);\\n    /// @notice NFT sold out\\n    error Mint_SoldOut();\\n    /// @notice Too many purchase for address\\n    error Purchase_TooManyForAddress();\\n    /// @notice Too many presale for address\\n    error Presale_TooManyForAddress();\\n\\n    // Admin errors\\n    /// @notice Royalty percentage too high\\n    error Setup_RoyaltyPercentageTooHigh(uint16 maxRoyaltyBPS);\\n    /// @notice Invalid admin upgrade address\\n    error Admin_InvalidUpgradeAddress(address proposedAddress);\\n    /// @notice Unable to finalize an edition not marked as open (size set to uint64_max_value)\\n    error Admin_UnableToFinalizeNotOpenEdition();\\n\\n    /// @notice Event emitted for each sale\\n    /// @param to address sale was made to\\n    /// @param quantity quantity of the minted nfts\\n    /// @param pricePerToken price for each token\\n    /// @param firstPurchasedTokenId first purchased token ID (to get range add to quantity for max)\\n    event Sale(\\n        address indexed to,\\n        uint256 indexed quantity,\\n        uint256 indexed pricePerToken,\\n        uint256 firstPurchasedTokenId\\n    );\\n\\n    /// @notice Sales configuration has been changed\\n    /// @dev To access new sales configuration, use getter function.\\n    /// @param changedBy Changed by user\\n    event SalesConfigChanged(address indexed changedBy);\\n\\n    /// @notice Event emitted when the funds recipient is changed\\n    /// @param newAddress new address for the funds recipient\\n    /// @param changedBy address that the recipient is changed by\\n    event FundsRecipientChanged(\\n        address indexed newAddress,\\n        address indexed changedBy\\n    );\\n\\n    /// @notice Event emitted when the funds are withdrawn from the minting contract\\n    /// @param withdrawnBy address that issued the withdraw\\n    /// @param withdrawnTo address that the funds were withdrawn to\\n    /// @param amount amount that was withdrawn\\n    event FundsWithdrawn(\\n        address indexed withdrawnBy,\\n        address indexed withdrawnTo,\\n        uint256 amount\\n    );\\n\\n    /// @notice Event emitted when an open mint is finalized and further minting is closed forever on the contract.\\n    /// @param sender address sending close mint\\n    /// @param numberOfMints number of mints the contract is finalized at\\n    event OpenMintFinalized(address indexed sender, uint256 numberOfMints);\\n\\n    /// @notice Event emitted when metadata renderer is updated.\\n    /// @param sender address of the updater\\n    /// @param renderer new metadata renderer address\\n    event UpdatedMetadataRenderer(address sender, IMetadataRenderer renderer);\\n\\n    /// @notice General configuration for NFT Minting and bookkeeping\\n    struct Configuration {\\n        /// @dev Metadata renderer (uint160)\\n        IMetadataRenderer metadataRenderer;\\n        /// @dev Total size of edition that can be minted (uint160+64 = 224)\\n        uint64 editionSize;\\n        /// @dev Royalty amount in bps (uint224+16 = 240)\\n        uint16 royaltyBPS;\\n        /// @dev Funds recipient for sale (new slot, uint160)\\n        address payable fundsRecipient;\\n    }\\n\\n    /// @notice Sales states and configuration\\n    /// @dev Uses 3 storage slots\\n    struct SalesConfiguration {\\n        /// @dev Public sale price (max ether value > 1000 ether with this value)\\n        uint104 publicSalePrice;\\n        /// @dev ERC20 Token\\n        address erc20PaymentToken;\\n        /// @notice Purchase mint limit per address (if set to 0 === unlimited mints)\\n        /// @dev Max purchase number per txn (90+32 = 122)\\n        uint32 maxSalePurchasePerAddress;\\n        /// @dev uint64 type allows for dates into 292 billion years\\n        /// @notice Public sale start timestamp (136+64 = 186)\\n        uint64 publicSaleStart;\\n        /// @notice Public sale end timestamp (186+64 = 250)\\n        uint64 publicSaleEnd;\\n        /// @notice Presale start timestamp\\n        /// @dev new storage slot\\n        uint64 presaleStart;\\n        /// @notice Presale end timestamp\\n        uint64 presaleEnd;\\n        /// @notice Presale merkle root\\n        bytes32 presaleMerkleRoot;\\n    }\\n\\n    /// @notice CRE8ORS - General configuration for Builder Rewards burn requirements\\n    struct BurnConfiguration {\\n        /// @dev Token to burn\\n        address burnToken;\\n        /// @dev Required number of tokens to burn\\n        uint256 burnQuantity;\\n    }\\n\\n    /// @notice Sales states and configuration\\n    /// @dev Uses 3 storage slots\\n    struct ERC20SalesConfiguration {\\n        /// @notice Public sale price\\n        /// @dev max ether value > 1000 ether with this value\\n        uint104 publicSalePrice;\\n        /// @dev ERC20 Token\\n        address erc20PaymentToken;\\n        /// @notice Purchase mint limit per address (if set to 0 === unlimited mints)\\n        /// @dev Max purchase number per txn (90+32 = 122)\\n        uint32 maxSalePurchasePerAddress;\\n        /// @dev uint64 type allows for dates into 292 billion years\\n        /// @notice Public sale start timestamp (136+64 = 186)\\n        uint64 publicSaleStart;\\n        /// @notice Public sale end timestamp (186+64 = 250)\\n        uint64 publicSaleEnd;\\n        /// @notice Presale start timestamp\\n        /// @dev new storage slot\\n        uint64 presaleStart;\\n        /// @notice Presale end timestamp\\n        uint64 presaleEnd;\\n        /// @notice Presale merkle root\\n        bytes32 presaleMerkleRoot;\\n    }\\n\\n    /// @notice Return value for sales details to use with front-ends\\n    struct SaleDetails {\\n        // Synthesized status variables for sale and presale\\n        bool publicSaleActive;\\n        bool presaleActive;\\n        // Price for public sale\\n        uint256 publicSalePrice;\\n        // Timed sale actions for public sale\\n        uint64 publicSaleStart;\\n        uint64 publicSaleEnd;\\n        // Timed sale actions for presale\\n        uint64 presaleStart;\\n        uint64 presaleEnd;\\n        // Merkle root (includes address, quantity, and price data for each entry)\\n        bytes32 presaleMerkleRoot;\\n        // Limit public sale to a specific number of mints per wallet\\n        uint256 maxSalePurchasePerAddress;\\n        // Information about the rest of the supply\\n        // Total that have been minted\\n        uint256 totalMinted;\\n        // The total supply available\\n        uint256 maxSupply;\\n    }\\n\\n    /// @notice Return value for sales details to use with front-ends\\n    struct ERC20SaleDetails {\\n        /// @notice Synthesized status variables for sale\\n        bool publicSaleActive;\\n        /// @notice Synthesized status variables for presale\\n        bool presaleActive;\\n        /// @notice Price for public sale\\n        uint256 publicSalePrice;\\n        /// @notice ERC20 contract address for payment. address(0) for ETH.\\n        address erc20PaymentToken;\\n        /// @notice public sale start\\n        uint64 publicSaleStart;\\n        /// @notice public sale end\\n        uint64 publicSaleEnd;\\n        /// @notice Timed sale actions for presale start\\n        uint64 presaleStart;\\n        /// @notice Timed sale actions for presale end\\n        uint64 presaleEnd;\\n        /// @notice Merkle root (includes address, quantity, and price data for each entry)\\n        bytes32 presaleMerkleRoot;\\n        /// @notice Limit public sale to a specific number of mints per wallet\\n        uint256 maxSalePurchasePerAddress;\\n        /// @notice Total that have been minted\\n        uint256 totalMinted;\\n        /// @notice The total supply available\\n        uint256 maxSupply;\\n    }\\n\\n    /// @notice Return type of specific mint counts and details per address\\n    struct AddressMintDetails {\\n        /// Number of total mints from the given address\\n        uint256 totalMints;\\n        /// Number of presale mints from the given address\\n        uint256 presaleMints;\\n        /// Number of public mints from the given address\\n        uint256 publicMints;\\n    }\\n\\n    /// @notice External purchase function (payable in eth)\\n    /// @param quantity to purchase\\n    /// @return first minted token ID\\n    function purchase(uint256 quantity) external payable returns (uint256);\\n\\n    /// @notice External purchase presale function (takes a merkle proof and matches to root) (payable in eth)\\n    /// @param quantity to purchase\\n    /// @param maxQuantity can purchase (verified by merkle root)\\n    /// @param pricePerToken price per token allowed (verified by merkle root)\\n    /// @param merkleProof input for merkle proof leaf verified by merkle root\\n    /// @return first minted token ID\\n    function purchasePresale(\\n        uint256 quantity,\\n        uint256 maxQuantity,\\n        uint256 pricePerToken,\\n        bytes32[] memory merkleProof\\n    ) external payable returns (uint256);\\n\\n    /// @notice Function to return the global sales details for the given drop\\n    function saleDetails() external view returns (ERC20SaleDetails memory);\\n\\n    /// @notice Function to return the specific sales details for a given address\\n    /// @param minter address for minter to return mint information for\\n    function mintedPerAddress(\\n        address minter\\n    ) external view returns (AddressMintDetails memory);\\n\\n    /// @notice This is the opensea/public owner setting that can be set by the contract admin\\n    function owner() external view returns (address);\\n\\n    /// @notice Update the metadata renderer\\n    /// @param newRenderer new address for renderer\\n    /// @param setupRenderer data to call to bootstrap data for the new renderer (optional)\\n    function setMetadataRenderer(\\n        IMetadataRenderer newRenderer,\\n        bytes memory setupRenderer\\n    ) external;\\n\\n    /// @notice This is an admin mint function to mint a quantity to a specific address\\n    /// @param to address to mint to\\n    /// @param quantity quantity to mint\\n    /// @return the id of the first minted NFT\\n    function adminMint(address to, uint256 quantity) external returns (uint256);\\n\\n    /// @notice This is an admin mint function to mint a single nft each to a list of addresses\\n    /// @param to list of addresses to mint an NFT each to\\n    /// @return the id of the first minted NFT\\n    function adminMintAirdrop(address[] memory to) external returns (uint256);\\n\\n    /// @dev Getter for admin role associated with the contract to handle metadata\\n    /// @return boolean if address is admin\\n    function isAdmin(address user) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x24b487848f3311cb1d9e2c8aaa6ed09b3b60e8b7cf48d04928ecf053c5987a2a\",\"license\":\"MIT\"},\"lib/CR8ORS_DROP_CONTRACT/src/interfaces/IMetadataRenderer.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.15;\\n\\n/**\\n \\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557 \\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557 \\u2588\\u2588\\u2588\\u2588\\u2588\\u2557  \\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557 \\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557 \\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\n\\u2588\\u2588\\u2554\\u2550\\u2550\\u2550\\u2550\\u255d\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2554\\u2550\\u2550\\u2550\\u2550\\u255d\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2554\\u2550\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2554\\u2550\\u2550\\u2550\\u2550\\u255d\\n\\u2588\\u2588\\u2551     \\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2554\\u255d\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557  \\u255a\\u2588\\u2588\\u2588\\u2588\\u2588\\u2554\\u255d\\u2588\\u2588\\u2551   \\u2588\\u2588\\u2551\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2554\\u255d\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\n\\u2588\\u2588\\u2551     \\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2554\\u2550\\u2550\\u255d  \\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u2588\\u2588\\u2551   \\u2588\\u2588\\u2551\\u2588\\u2588\\u2554\\u2550\\u2550\\u2588\\u2588\\u2557\\u255a\\u2550\\u2550\\u2550\\u2550\\u2588\\u2588\\u2551\\n\\u255a\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u2588\\u2588\\u2551  \\u2588\\u2588\\u2551\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2557\\u255a\\u2588\\u2588\\u2588\\u2588\\u2588\\u2554\\u255d\\u255a\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2554\\u255d\\u2588\\u2588\\u2551  \\u2588\\u2588\\u2551\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2588\\u2551\\n \\u255a\\u2550\\u2550\\u2550\\u2550\\u2550\\u255d\\u255a\\u2550\\u255d  \\u255a\\u2550\\u255d\\u255a\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u255d \\u255a\\u2550\\u2550\\u2550\\u2550\\u255d  \\u255a\\u2550\\u2550\\u2550\\u2550\\u2550\\u255d \\u255a\\u2550\\u255d  \\u255a\\u2550\\u255d\\u255a\\u2550\\u2550\\u2550\\u2550\\u2550\\u2550\\u255d                                                     \\n */\\n\\n/// @dev credit: https://github.com/ourzora/zora-drops-contracts\\ninterface IMetadataRenderer {\\n    function tokenURI(uint256) external view returns (string memory);\\n\\n    function contractURI() external view returns (string memory);\\n\\n    function initializeWithData(bytes memory initData) external;\\n}\\n\",\"keccak256\":\"0x7d0928ed3ba0751dc51df125642a7f97dd3e1b949918b9b74898775b656abf9c\",\"license\":\"MIT\"},\"lib/openzeppelin-contracts/contracts/access/IAccessControl.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (access/IAccessControl.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev External interface of AccessControl declared to support ERC165 detection.\\n */\\ninterface IAccessControl {\\n    /**\\n     * @dev Emitted when `newAdminRole` is set as ``role``'s admin role, replacing `previousAdminRole`\\n     *\\n     * `DEFAULT_ADMIN_ROLE` is the starting admin for all roles, despite\\n     * {RoleAdminChanged} not being emitted signaling this.\\n     *\\n     * _Available since v3.1._\\n     */\\n    event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole);\\n\\n    /**\\n     * @dev Emitted when `account` is granted `role`.\\n     *\\n     * `sender` is the account that originated the contract call, an admin role\\n     * bearer except when using {AccessControl-_setupRole}.\\n     */\\n    event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender);\\n\\n    /**\\n     * @dev Emitted when `account` is revoked `role`.\\n     *\\n     * `sender` is the account that originated the contract call:\\n     *   - if using `revokeRole`, it is the admin role bearer\\n     *   - if using `renounceRole`, it is the role bearer (i.e. `account`)\\n     */\\n    event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender);\\n\\n    /**\\n     * @dev Returns `true` if `account` has been granted `role`.\\n     */\\n    function hasRole(bytes32 role, address account) external view returns (bool);\\n\\n    /**\\n     * @dev Returns the admin role that controls `role`. See {grantRole} and\\n     * {revokeRole}.\\n     *\\n     * To change a role's admin, use {AccessControl-_setRoleAdmin}.\\n     */\\n    function getRoleAdmin(bytes32 role) external view returns (bytes32);\\n\\n    /**\\n     * @dev Grants `role` to `account`.\\n     *\\n     * If `account` had not been already granted `role`, emits a {RoleGranted}\\n     * event.\\n     *\\n     * Requirements:\\n     *\\n     * - the caller must have ``role``'s admin role.\\n     */\\n    function grantRole(bytes32 role, address account) external;\\n\\n    /**\\n     * @dev Revokes `role` from `account`.\\n     *\\n     * If `account` had been granted `role`, emits a {RoleRevoked} event.\\n     *\\n     * Requirements:\\n     *\\n     * - the caller must have ``role``'s admin role.\\n     */\\n    function revokeRole(bytes32 role, address account) external;\\n\\n    /**\\n     * @dev Revokes `role` from the calling account.\\n     *\\n     * Roles are often managed via {grantRole} and {revokeRole}: this function's\\n     * purpose is to provide a mechanism for accounts to lose their privileges\\n     * if they are compromised (such as when a trusted device is misplaced).\\n     *\\n     * If the calling account had been granted `role`, emits a {RoleRevoked}\\n     * event.\\n     *\\n     * Requirements:\\n     *\\n     * - the caller must be `account`.\\n     */\\n    function renounceRole(bytes32 role, address account) external;\\n}\\n\",\"keccak256\":\"0x59ce320a585d7e1f163cd70390a0ef2ff9cec832e2aa544293a00692465a7a57\",\"license\":\"MIT\"},\"lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.0) (token/ERC721/IERC721.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../../utils/introspection/IERC165.sol\\\";\\n\\n/**\\n * @dev Required interface of an ERC721 compliant contract.\\n */\\ninterface IERC721 is IERC165 {\\n    /**\\n     * @dev Emitted when `tokenId` token is transferred from `from` to `to`.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);\\n\\n    /**\\n     * @dev Emitted when `owner` enables `approved` to manage the `tokenId` token.\\n     */\\n    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);\\n\\n    /**\\n     * @dev Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets.\\n     */\\n    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);\\n\\n    /**\\n     * @dev Returns the number of tokens in ``owner``'s account.\\n     */\\n    function balanceOf(address owner) external view returns (uint256 balance);\\n\\n    /**\\n     * @dev Returns the owner of the `tokenId` token.\\n     *\\n     * Requirements:\\n     *\\n     * - `tokenId` must exist.\\n     */\\n    function ownerOf(uint256 tokenId) external view returns (address owner);\\n\\n    /**\\n     * @dev Safely transfers `tokenId` token from `from` to `to`.\\n     *\\n     * Requirements:\\n     *\\n     * - `from` cannot be the zero address.\\n     * - `to` cannot be the zero address.\\n     * - `tokenId` token must exist and be owned by `from`.\\n     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.\\n     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function safeTransferFrom(address from, address to, uint256 tokenId, bytes calldata data) external;\\n\\n    /**\\n     * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients\\n     * are aware of the ERC721 protocol to prevent tokens from being forever locked.\\n     *\\n     * Requirements:\\n     *\\n     * - `from` cannot be the zero address.\\n     * - `to` cannot be the zero address.\\n     * - `tokenId` token must exist and be owned by `from`.\\n     * - If the caller is not `from`, it must have been allowed to move this token by either {approve} or {setApprovalForAll}.\\n     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function safeTransferFrom(address from, address to, uint256 tokenId) external;\\n\\n    /**\\n     * @dev Transfers `tokenId` token from `from` to `to`.\\n     *\\n     * WARNING: Note that the caller is responsible to confirm that the recipient is capable of receiving ERC721\\n     * or else they may be permanently lost. Usage of {safeTransferFrom} prevents loss, though the caller must\\n     * understand this adds an external call which potentially creates a reentrancy vulnerability.\\n     *\\n     * Requirements:\\n     *\\n     * - `from` cannot be the zero address.\\n     * - `to` cannot be the zero address.\\n     * - `tokenId` token must be owned by `from`.\\n     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(address from, address to, uint256 tokenId) external;\\n\\n    /**\\n     * @dev Gives permission to `to` to transfer `tokenId` token to another account.\\n     * The approval is cleared when the token is transferred.\\n     *\\n     * Only a single account can be approved at a time, so approving the zero address clears previous approvals.\\n     *\\n     * Requirements:\\n     *\\n     * - The caller must own the token or be an approved operator.\\n     * - `tokenId` must exist.\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address to, uint256 tokenId) external;\\n\\n    /**\\n     * @dev Approve or remove `operator` as an operator for the caller.\\n     * Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller.\\n     *\\n     * Requirements:\\n     *\\n     * - The `operator` cannot be the caller.\\n     *\\n     * Emits an {ApprovalForAll} event.\\n     */\\n    function setApprovalForAll(address operator, bool approved) external;\\n\\n    /**\\n     * @dev Returns the account approved for `tokenId` token.\\n     *\\n     * Requirements:\\n     *\\n     * - `tokenId` must exist.\\n     */\\n    function getApproved(uint256 tokenId) external view returns (address operator);\\n\\n    /**\\n     * @dev Returns if the `operator` is allowed to manage all of the assets of `owner`.\\n     *\\n     * See {setApprovalForAll}\\n     */\\n    function isApprovedForAll(address owner, address operator) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x5bce51e11f7d194b79ea59fe00c9e8de9fa2c5530124960f29a24d4c740a3266\",\"license\":\"MIT\"},\"lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/introspection/IERC165.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Interface of the ERC165 standard, as defined in the\\n * https://eips.ethereum.org/EIPS/eip-165[EIP].\\n *\\n * Implementers can declare support of contract interfaces, which can then be\\n * queried by others ({ERC165Checker}).\\n *\\n * For an implementation, see {ERC165}.\\n */\\ninterface IERC165 {\\n    /**\\n     * @dev Returns true if this contract implements the interface defined by\\n     * `interfaceId`. See the corresponding\\n     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]\\n     * to learn more about how these ids are created.\\n     *\\n     * This function call must use less than 30 000 gas.\\n     */\\n    function supportsInterface(bytes4 interfaceId) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x447a5f3ddc18419d41ff92b3773fb86471b1db25773e07f877f548918a185bf1\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060405161163f38038061163f83398101604081905261002f91610077565b600055600380546001600160a01b0319166001600160a01b039390931692909217909155600280546001600160401b0319166001600160401b039092169190911790556100d2565b60008060006060848603121561008c57600080fd5b83516001600160a01b03811681146100a357600080fd5b60208501519093506001600160401b03811681146100c057600080fd5b80925050604084015190509250925092565b61155e806100e16000396000f3fe6080604052600436106101405760003560e01c806357064afe116100b6578063cde317af1161006f578063cde317af146103b8578063d5391393146103d8578063d5dca19f146103fa578063e7e25ee51461040d578063f3b8f6631461042d578063f940e3851461044d57600080fd5b806357064afe146102eb57806363d20de71461030b578063776ce8681461032b578063910067451461033e578063954689ca1461035e578063b4695d8c1461039857600080fd5b8063176f7d7c11610108578063176f7d7c1461020657806317c9570914610226578063212350831461025c57806332fb5c481461026f5780633804fd1f146102a75780634073377c146102cb57600080fd5b806301ffc9a71461014557806304394ed91461017a57806308553db91461018f578063090db029146101bf578063147e9782146101e6575b600080fd5b34801561015157600080fd5b5061016561016036600461124d565b61046d565b60405190151581526020015b60405180910390f35b61018d6101883660046112ab565b610505565b005b34801561019b57600080fd5b506101a76301e1338081565b6040516001600160401b039091168152602001610171565b3480156101cb57600080fd5b506002546101a790600160401b90046001600160401b031681565b3480156101f257600080fd5b506002546101a7906001600160401b031681565b34801561021257600080fd5b5061018d61022136600461133d565b6106f1565b34801561023257600080fd5b506101a7610241366004611372565b6000908152600160205260409020546001600160401b031690565b61018d61026a366004611372565b610748565b34801561027b57600080fd5b5060035461028f906001600160a01b031681565b6040516001600160a01b039091168152602001610171565b3480156102b357600080fd5b506102bd60005481565b604051908152602001610171565b3480156102d757600080fd5b5061018d6102e636600461133d565b6107c7565b3480156102f757600080fd5b5061018d61030636600461138b565b610810565b34801561031757600080fd5b5061018d6103263660046113b7565b610875565b61018d6103393660046113f5565b6109c1565b34801561034a57600080fd5b50610165610359366004611418565b610ad8565b34801561036a57600080fd5b50610165610379366004611372565b600090815260016020526040902054426001600160401b039091161190565b3480156103a457600080fd5b5061018d6103b33660046112ab565b610b4d565b3480156103c457600080fd5b506101656103d3366004611372565b610ccb565b3480156103e457600080fd5b506102bd60008051602061153283398151915281565b61018d6104083660046113b7565b610ce0565b34801561041957600080fd5b50610165610428366004611372565b610e83565b34801561043957600080fd5b5061018d61044836600461145f565b610ebd565b34801561045957600080fd5b5061018d610468366004611418565b610f05565b60006001600160e01b03198216638c65f84d60e01b14806104ff57506003546040516301ffc9a760e01b81526001600160e01b0319841660048201526001600160a01b03909116906301ffc9a790602401602060405180830381865afa1580156104db573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104ff919061148d565b92915050565b8360008051602061153283398151915261051f8233610ad8565b1580156105985750604051632474521560e21b8152600481018290523360248201526001600160a01b038316906391d1485490604401602060405180830381865afa158015610572573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610596919061148d565b155b156105be576040516333ba055f60e21b8152600481018290526024015b60405180910390fd5b60025485906001600160401b0390811690821610156105f05760405163e3061ca960e01b815260040160405180910390fd5b600254600160401b90046001600160401b03161580159061062657506002546001600160401b03600160401b9091048116908216115b1561064457604051633b44021f60e01b815260040160405180910390fd5b346106586001600160401b038816866114c0565b806001600160401b031660000361068257604051637616640160e01b815260040160405180910390fd5b61068b81610fcb565b8210156106ab5760405163cd1c886760e01b815260040160405180910390fd5b6000805b878110156106e4578888828181106106c9576106c96114d7565b9050602002013591506106dc828b610fe2565b6001016106af565b5050505050505050505050565b816106fc8133610ad8565b610719576040516302bd6bd160e01b815260040160405180910390fd5b600280546fffffffffffffffff00000000000000001916600160401b6001600160401b03851602179055505050565b338161075482826110c4565b61077157604051632a60827160e21b815260040160405180910390fd5b6000838152600160209081526040808320805467ffffffffffffffff191690555191825284917f2ec2be2c4b90c2cf13ecb6751a24daed6bb741ae5ed3f7371aabf9402f6d62e8910160405180910390a2505050565b816107d28133610ad8565b6107ef576040516302bd6bd160e01b815260040160405180910390fd5b6002805467ffffffffffffffff19166001600160401b038416179055505050565b8161081b8133610ad8565b610838576040516302bd6bd160e01b815260040160405180910390fd5b60008290556040518281527f9bb66cb13f624f691aedcc04a2be58c5c1d73cf9d41593070f0ff9d4f9e410b39060200160405180910390a1505050565b8260008051602061153283398151915261088f8233610ad8565b1580156109085750604051632474521560e21b8152600481018290523360248201526001600160a01b038316906391d1485490604401602060405180830381865afa1580156108e2573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610906919061148d565b155b15610929576040516333ba055f60e21b8152600481018290526024016105b5565b60025484906001600160401b03908116908216101561095b5760405163e3061ca960e01b815260040160405180910390fd5b600254600160401b90046001600160401b03161580159061099157506002546001600160401b03600160401b9091048116908216115b156109af57604051633b44021f60e01b815260040160405180910390fd5b6109b98486610fe2565b505050505050565b33826109cd82826110c4565b6109ea57604051632a60827160e21b815260040160405180910390fd5b60025483906001600160401b039081169082161015610a1c5760405163e3061ca960e01b815260040160405180910390fd5b600254600160401b90046001600160401b031615801590610a5257506002546001600160401b03600160401b9091048116908216115b15610a7057604051633b44021f60e01b815260040160405180910390fd5b3484806001600160401b0316600003610a9c57604051637616640160e01b815260040160405180910390fd5b610aa581610fcb565b821015610ac55760405163cd1c886760e01b815260040160405180910390fd5b610acf8787610fe2565b50505050505050565b604051630935e01b60e21b81526001600160a01b038281166004830152600091908416906324d7806c90602401602060405180830381865afa158015610b22573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610b46919061148d565b9392505050565b83600080516020611532833981519152610b678233610ad8565b158015610be05750604051632474521560e21b8152600481018290523360248201526001600160a01b038316906391d1485490604401602060405180830381865afa158015610bba573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610bde919061148d565b155b15610c01576040516333ba055f60e21b8152600481018290526024016105b5565b60025485906001600160401b039081169082161015610c335760405163e3061ca960e01b815260040160405180910390fd5b600254600160401b90046001600160401b031615801590610c6957506002546001600160401b03600160401b9091048116908216115b15610c8757604051633b44021f60e01b815260040160405180910390fd5b6000805b85811015610cc057868682818110610ca557610ca56114d7565b905060200201359150610cb88289610fe2565b600101610c8b565b505050505050505050565b600354600090600160a01b900460ff166104ff565b82600080516020611532833981519152610cfa8233610ad8565b158015610d735750604051632474521560e21b8152600481018290523360248201526001600160a01b038316906391d1485490604401602060405180830381865afa158015610d4d573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610d71919061148d565b155b15610d94576040516333ba055f60e21b8152600481018290526024016105b5565b60025484906001600160401b039081169082161015610dc65760405163e3061ca960e01b815260040160405180910390fd5b600254600160401b90046001600160401b031615801590610dfc57506002546001600160401b03600160401b9091048116908216115b15610e1a57604051633b44021f60e01b815260040160405180910390fd5b3485806001600160401b0316600003610e4657604051637616640160e01b815260040160405180910390fd5b610e4f81610fcb565b821015610e6f5760405163cd1c886760e01b815260040160405180910390fd5b610e798688610fe2565b5050505050505050565b600081815260016020526040812054426001600160401b0390911611806104ff57604051630fb532db60e11b815260040160405180910390fd5b81610ec88133610ad8565b610ee5576040516302bd6bd160e01b815260040160405180910390fd5b5060038054911515600160a01b0260ff60a01b1990921691909117905550565b81610f108133610ad8565b610f2d576040516302bd6bd160e01b815260040160405180910390fd5b476000819003610f50576040516363868c5560e11b815260040160405180910390fd5b6000836001600160a01b03168260405160006040518083038185875af1925050503d8060008114610f9d576040519150601f19603f3d011682016040523d82523d6000602084013e610fa2565b606091505b5050905080610fc45760405163b12d13eb60e01b815260040160405180910390fd5b5050505050565b600080546104ff906001600160401b0384166114c0565b6000828152600160205260408120546001600160401b031690811580611010575042826001600160401b0316105b156110265761101f83426114ed565b905061105d565b600354600160a01b900460ff1661105057604051638b9bff4560e01b815260040160405180910390fd5b61105a83836114ed565b90505b600084815260016020908152604091829020805467ffffffffffffffff19166001600160401b038516908117909155915191825285917f2ec2be2c4b90c2cf13ecb6751a24daed6bb741ae5ed3f7371aabf9402f6d62e8910160405180910390a250505050565b6003546040516331a9108f60e11b8152600481018390526000916001600160a01b03169082908290636352211e90602401602060405180830381865afa158015611112573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906111369190611514565b9050806001600160a01b0316856001600160a01b031614806111c5575060405163e985e9c560e01b81526001600160a01b038281166004830152868116602483015283169063e985e9c590604401602060405180830381865afa1580156111a1573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906111c5919061148d565b80611244575060405163020604bf60e21b8152600481018590526001600160a01b03808716919084169063081812fc90602401602060405180830381865afa158015611215573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906112399190611514565b6001600160a01b0316145b95945050505050565b60006020828403121561125f57600080fd5b81356001600160e01b031981168114610b4657600080fd5b6001600160a01b038116811461128c57600080fd5b50565b80356001600160401b03811681146112a657600080fd5b919050565b600080600080606085870312156112c157600080fd5b84356112cc81611277565b93506112da6020860161128f565b925060408501356001600160401b03808211156112f657600080fd5b818701915087601f83011261130a57600080fd5b81358181111561131957600080fd5b8860208260051b850101111561132e57600080fd5b95989497505060200194505050565b6000806040838503121561135057600080fd5b823561135b81611277565b91506113696020840161128f565b90509250929050565b60006020828403121561138457600080fd5b5035919050565b6000806040838503121561139e57600080fd5b82356113a981611277565b946020939093013593505050565b6000806000606084860312156113cc57600080fd5b83356113d781611277565b92506113e56020850161128f565b9150604084013590509250925092565b6000806040838503121561140857600080fd5b823591506113696020840161128f565b6000806040838503121561142b57600080fd5b823561143681611277565b9150602083013561144681611277565b809150509250929050565b801515811461128c57600080fd5b6000806040838503121561147257600080fd5b823561147d81611277565b9150602083013561144681611451565b60006020828403121561149f57600080fd5b8151610b4681611451565b634e487b7160e01b600052601160045260246000fd5b80820281158282048414176104ff576104ff6114aa565b634e487b7160e01b600052603260045260246000fd5b6001600160401b0381811683821601908082111561150d5761150d6114aa565b5092915050565b60006020828403121561152657600080fd5b8151610b468161127756fef0887ba65ee2024ea881d91b74c2450ef19e1557f03bed3ea9f16b037cbe2dc9a164736f6c6343000813000a",
+  "deployedBytecode": "0x6080604052600436106101405760003560e01c806357064afe116100b6578063cde317af1161006f578063cde317af146103b8578063d5391393146103d8578063d5dca19f146103fa578063e7e25ee51461040d578063f3b8f6631461042d578063f940e3851461044d57600080fd5b806357064afe146102eb57806363d20de71461030b578063776ce8681461032b578063910067451461033e578063954689ca1461035e578063b4695d8c1461039857600080fd5b8063176f7d7c11610108578063176f7d7c1461020657806317c9570914610226578063212350831461025c57806332fb5c481461026f5780633804fd1f146102a75780634073377c146102cb57600080fd5b806301ffc9a71461014557806304394ed91461017a57806308553db91461018f578063090db029146101bf578063147e9782146101e6575b600080fd5b34801561015157600080fd5b5061016561016036600461124d565b61046d565b60405190151581526020015b60405180910390f35b61018d6101883660046112ab565b610505565b005b34801561019b57600080fd5b506101a76301e1338081565b6040516001600160401b039091168152602001610171565b3480156101cb57600080fd5b506002546101a790600160401b90046001600160401b031681565b3480156101f257600080fd5b506002546101a7906001600160401b031681565b34801561021257600080fd5b5061018d61022136600461133d565b6106f1565b34801561023257600080fd5b506101a7610241366004611372565b6000908152600160205260409020546001600160401b031690565b61018d61026a366004611372565b610748565b34801561027b57600080fd5b5060035461028f906001600160a01b031681565b6040516001600160a01b039091168152602001610171565b3480156102b357600080fd5b506102bd60005481565b604051908152602001610171565b3480156102d757600080fd5b5061018d6102e636600461133d565b6107c7565b3480156102f757600080fd5b5061018d61030636600461138b565b610810565b34801561031757600080fd5b5061018d6103263660046113b7565b610875565b61018d6103393660046113f5565b6109c1565b34801561034a57600080fd5b50610165610359366004611418565b610ad8565b34801561036a57600080fd5b50610165610379366004611372565b600090815260016020526040902054426001600160401b039091161190565b3480156103a457600080fd5b5061018d6103b33660046112ab565b610b4d565b3480156103c457600080fd5b506101656103d3366004611372565b610ccb565b3480156103e457600080fd5b506102bd60008051602061153283398151915281565b61018d6104083660046113b7565b610ce0565b34801561041957600080fd5b50610165610428366004611372565b610e83565b34801561043957600080fd5b5061018d61044836600461145f565b610ebd565b34801561045957600080fd5b5061018d610468366004611418565b610f05565b60006001600160e01b03198216638c65f84d60e01b14806104ff57506003546040516301ffc9a760e01b81526001600160e01b0319841660048201526001600160a01b03909116906301ffc9a790602401602060405180830381865afa1580156104db573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104ff919061148d565b92915050565b8360008051602061153283398151915261051f8233610ad8565b1580156105985750604051632474521560e21b8152600481018290523360248201526001600160a01b038316906391d1485490604401602060405180830381865afa158015610572573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610596919061148d565b155b156105be576040516333ba055f60e21b8152600481018290526024015b60405180910390fd5b60025485906001600160401b0390811690821610156105f05760405163e3061ca960e01b815260040160405180910390fd5b600254600160401b90046001600160401b03161580159061062657506002546001600160401b03600160401b9091048116908216115b1561064457604051633b44021f60e01b815260040160405180910390fd5b346106586001600160401b038816866114c0565b806001600160401b031660000361068257604051637616640160e01b815260040160405180910390fd5b61068b81610fcb565b8210156106ab5760405163cd1c886760e01b815260040160405180910390fd5b6000805b878110156106e4578888828181106106c9576106c96114d7565b9050602002013591506106dc828b610fe2565b6001016106af565b5050505050505050505050565b816106fc8133610ad8565b610719576040516302bd6bd160e01b815260040160405180910390fd5b600280546fffffffffffffffff00000000000000001916600160401b6001600160401b03851602179055505050565b338161075482826110c4565b61077157604051632a60827160e21b815260040160405180910390fd5b6000838152600160209081526040808320805467ffffffffffffffff191690555191825284917f2ec2be2c4b90c2cf13ecb6751a24daed6bb741ae5ed3f7371aabf9402f6d62e8910160405180910390a2505050565b816107d28133610ad8565b6107ef576040516302bd6bd160e01b815260040160405180910390fd5b6002805467ffffffffffffffff19166001600160401b038416179055505050565b8161081b8133610ad8565b610838576040516302bd6bd160e01b815260040160405180910390fd5b60008290556040518281527f9bb66cb13f624f691aedcc04a2be58c5c1d73cf9d41593070f0ff9d4f9e410b39060200160405180910390a1505050565b8260008051602061153283398151915261088f8233610ad8565b1580156109085750604051632474521560e21b8152600481018290523360248201526001600160a01b038316906391d1485490604401602060405180830381865afa1580156108e2573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610906919061148d565b155b15610929576040516333ba055f60e21b8152600481018290526024016105b5565b60025484906001600160401b03908116908216101561095b5760405163e3061ca960e01b815260040160405180910390fd5b600254600160401b90046001600160401b03161580159061099157506002546001600160401b03600160401b9091048116908216115b156109af57604051633b44021f60e01b815260040160405180910390fd5b6109b98486610fe2565b505050505050565b33826109cd82826110c4565b6109ea57604051632a60827160e21b815260040160405180910390fd5b60025483906001600160401b039081169082161015610a1c5760405163e3061ca960e01b815260040160405180910390fd5b600254600160401b90046001600160401b031615801590610a5257506002546001600160401b03600160401b9091048116908216115b15610a7057604051633b44021f60e01b815260040160405180910390fd5b3484806001600160401b0316600003610a9c57604051637616640160e01b815260040160405180910390fd5b610aa581610fcb565b821015610ac55760405163cd1c886760e01b815260040160405180910390fd5b610acf8787610fe2565b50505050505050565b604051630935e01b60e21b81526001600160a01b038281166004830152600091908416906324d7806c90602401602060405180830381865afa158015610b22573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610b46919061148d565b9392505050565b83600080516020611532833981519152610b678233610ad8565b158015610be05750604051632474521560e21b8152600481018290523360248201526001600160a01b038316906391d1485490604401602060405180830381865afa158015610bba573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610bde919061148d565b155b15610c01576040516333ba055f60e21b8152600481018290526024016105b5565b60025485906001600160401b039081169082161015610c335760405163e3061ca960e01b815260040160405180910390fd5b600254600160401b90046001600160401b031615801590610c6957506002546001600160401b03600160401b9091048116908216115b15610c8757604051633b44021f60e01b815260040160405180910390fd5b6000805b85811015610cc057868682818110610ca557610ca56114d7565b905060200201359150610cb88289610fe2565b600101610c8b565b505050505050505050565b600354600090600160a01b900460ff166104ff565b82600080516020611532833981519152610cfa8233610ad8565b158015610d735750604051632474521560e21b8152600481018290523360248201526001600160a01b038316906391d1485490604401602060405180830381865afa158015610d4d573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610d71919061148d565b155b15610d94576040516333ba055f60e21b8152600481018290526024016105b5565b60025484906001600160401b039081169082161015610dc65760405163e3061ca960e01b815260040160405180910390fd5b600254600160401b90046001600160401b031615801590610dfc57506002546001600160401b03600160401b9091048116908216115b15610e1a57604051633b44021f60e01b815260040160405180910390fd5b3485806001600160401b0316600003610e4657604051637616640160e01b815260040160405180910390fd5b610e4f81610fcb565b821015610e6f5760405163cd1c886760e01b815260040160405180910390fd5b610e798688610fe2565b5050505050505050565b600081815260016020526040812054426001600160401b0390911611806104ff57604051630fb532db60e11b815260040160405180910390fd5b81610ec88133610ad8565b610ee5576040516302bd6bd160e01b815260040160405180910390fd5b5060038054911515600160a01b0260ff60a01b1990921691909117905550565b81610f108133610ad8565b610f2d576040516302bd6bd160e01b815260040160405180910390fd5b476000819003610f50576040516363868c5560e11b815260040160405180910390fd5b6000836001600160a01b03168260405160006040518083038185875af1925050503d8060008114610f9d576040519150601f19603f3d011682016040523d82523d6000602084013e610fa2565b606091505b5050905080610fc45760405163b12d13eb60e01b815260040160405180910390fd5b5050505050565b600080546104ff906001600160401b0384166114c0565b6000828152600160205260408120546001600160401b031690811580611010575042826001600160401b0316105b156110265761101f83426114ed565b905061105d565b600354600160a01b900460ff1661105057604051638b9bff4560e01b815260040160405180910390fd5b61105a83836114ed565b90505b600084815260016020908152604091829020805467ffffffffffffffff19166001600160401b038516908117909155915191825285917f2ec2be2c4b90c2cf13ecb6751a24daed6bb741ae5ed3f7371aabf9402f6d62e8910160405180910390a250505050565b6003546040516331a9108f60e11b8152600481018390526000916001600160a01b03169082908290636352211e90602401602060405180830381865afa158015611112573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906111369190611514565b9050806001600160a01b0316856001600160a01b031614806111c5575060405163e985e9c560e01b81526001600160a01b038281166004830152868116602483015283169063e985e9c590604401602060405180830381865afa1580156111a1573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906111c5919061148d565b80611244575060405163020604bf60e21b8152600481018590526001600160a01b03808716919084169063081812fc90602401602060405180830381865afa158015611215573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906112399190611514565b6001600160a01b0316145b95945050505050565b60006020828403121561125f57600080fd5b81356001600160e01b031981168114610b4657600080fd5b6001600160a01b038116811461128c57600080fd5b50565b80356001600160401b03811681146112a657600080fd5b919050565b600080600080606085870312156112c157600080fd5b84356112cc81611277565b93506112da6020860161128f565b925060408501356001600160401b03808211156112f657600080fd5b818701915087601f83011261130a57600080fd5b81358181111561131957600080fd5b8860208260051b850101111561132e57600080fd5b95989497505060200194505050565b6000806040838503121561135057600080fd5b823561135b81611277565b91506113696020840161128f565b90509250929050565b60006020828403121561138457600080fd5b5035919050565b6000806040838503121561139e57600080fd5b82356113a981611277565b946020939093013593505050565b6000806000606084860312156113cc57600080fd5b83356113d781611277565b92506113e56020850161128f565b9150604084013590509250925092565b6000806040838503121561140857600080fd5b823591506113696020840161128f565b6000806040838503121561142b57600080fd5b823561143681611277565b9150602083013561144681611277565b809150509250929050565b801515811461128c57600080fd5b6000806040838503121561147257600080fd5b823561147d81611277565b9150602083013561144681611451565b60006020828403121561149f57600080fd5b8151610b4681611451565b634e487b7160e01b600052601160045260246000fd5b80820281158282048414176104ff576104ff6114aa565b634e487b7160e01b600052603260045260246000fd5b6001600160401b0381811683821601908082111561150d5761150d6114aa565b5092915050565b60006020828403121561152657600080fd5b8151610b468161127756fef0887ba65ee2024ea881d91b74c2450ef19e1557f03bed3ea9f16b037cbe2dc9a164736f6c6343000813000a",
+  "devdoc": {
+    "events": {
+      "PricePerSecondUpdated(uint256)": {
+        "details": "Emitted when the native currency price is updated.",
+        "params": {
+          "newPrice": "The new price per second of the native currency."
+        }
+      },
+      "SubscriptionUpdate(uint256,uint64)": {
+        "details": "When a subscription is canceled, the expiration value should also be 0."
+      }
+    },
+    "kind": "dev",
+    "methods": {
+      "cancelSubscription(uint256)": {
+        "details": "Throws if `tokenId` is not a valid NFT",
+        "params": {
+          "tokenId": "The NFT to cancel the subscription for"
+        }
+      },
+      "expiresAt(uint256)": {
+        "details": "Throws if `tokenId` is not a valid NFT",
+        "params": {
+          "tokenId": "The NFT to get the expiration date of"
+        },
+        "returns": {
+          "_0": "The expiration date of the subscription"
+        }
+      },
+      "isAdmin(address,address)": {
+        "params": {
+          "target": "The address of the contract implementing the access control",
+          "user": "The address to check for admin access"
+        },
+        "returns": {
+          "_0": "Whether the address has admin access or not"
+        }
+      },
+      "isRenewable(uint256)": {
+        "details": "Throws if `tokenId` is not a valid NFT",
+        "params": {
+          "tokenId": "The NFT to get the expiration date of"
+        },
+        "returns": {
+          "_0": "The renewability of a the subscription"
+        }
+      },
+      "isSubscriptionValid(uint256)": {
+        "params": {
+          "tokenId": "The unique identifier of the NFT token."
+        },
+        "returns": {
+          "_0": "A boolean indicating if the subscription is valid."
+        }
+      },
+      "renewSubscription(uint256,uint64)": {
+        "params": {
+          "duration": "The number of seconds to extend a subscription for",
+          "tokenId": "The NFT to renew the subscription for"
+        }
+      },
+      "setMaxRenewalDuration(address,uint64)": {
+        "details": "This function can only be called by the admin.",
+        "params": {
+          "duration": "The maximum duration (in seconds) for subscription renewal."
+        }
+      },
+      "setMinRenewalDuration(address,uint64)": {
+        "details": "This function can only be called by the admin.",
+        "params": {
+          "duration": "The minimum duration (in seconds) for subscription renewal."
+        }
+      },
+      "setPricePerSecond(address,uint256)": {
+        "params": {
+          "newPrice": "The new price per second to be set.",
+          "target": "The address of the contract implementing the access control."
+        }
+      },
+      "setRenewable(address,bool)": {
+        "details": "This function can only be called by the admin.",
+        "params": {
+          "renewable": "Boolean flag to indicate if subscriptions are renewable."
+        }
+      },
+      "supportsInterface(bytes4)": {
+        "details": "See {IERC165-supportsInterface}."
+      },
+      "updateSubscription(address,uint64,uint256)": {
+        "details": "This function is meant to be called by the minter when minting the NFT to subscribe.",
+        "params": {
+          "duration": "The duration (in seconds) to extend the subscription for.",
+          "target": "The address of the contract implementing the access control",
+          "tokenId": "The unique identifier of the NFT token to be subscribed."
+        }
+      },
+      "updateSubscription(address,uint64,uint256[])": {
+        "details": "No need to check for `tokenIds.length` as `isRenewalPriceValid` checks duration to not be zero.",
+        "params": {
+          "duration": "The duration (in seconds) to extend the subscription for.",
+          "target": "The address of the contract implementing the access control",
+          "tokenIds": "An array of unique identifiers of the NFT tokens to update the subscriptions for."
+        }
+      },
+      "updateSubscriptionForFree(address,uint64,uint256)": {
+        "details": "This function is meant to be called by the minter when minting the NFT to subscribe.",
+        "params": {
+          "duration": "The duration (in seconds) to extend the subscription for.",
+          "target": "The address of the contract implementing the access control",
+          "tokenId": "The unique identifier of the NFT token to be subscribed."
+        }
+      },
+      "updateSubscriptionForFree(address,uint64,uint256[])": {
+        "details": "This function is meant to be called by the minter when minting the NFT to subscribe.",
+        "params": {
+          "duration": "The duration (in seconds) to extend the subscription for.",
+          "target": "The address of the contract implementing the access control",
+          "tokenIds": "An array of unique identifiers of the NFT tokens to update the subscriptions for."
+        }
+      },
+      "validateSubscription(uint256)": {
+        "params": {
+          "tokenId": "The unique identifier of the NFT token."
+        },
+        "returns": {
+          "_0": "A boolean indicating if the subscription is valid."
+        }
+      },
+      "withdraw(address,address)": {
+        "params": {
+          "target": "The address of the contract implementing the access control.",
+          "to": "The address to which the native currency should be withdrawn."
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "errors": {
+      "Access_MissingOwnerOrApproved()": [
+        {
+          "notice": "Missing the owner role or approved nft access."
+        }
+      ],
+      "Access_MissingRoleOrAdmin(bytes32)": [
+        {
+          "notice": "Missing the given role or admin access"
+        }
+      ],
+      "Access_OnlyAdmin()": [
+        {
+          "notice": "Only admin can access this function"
+        }
+      ],
+      "ETHTransferFailed()": [
+        {
+          "notice": "Error message for failed ETH transfer."
+        }
+      ],
+      "InsufficientPayment()": [
+        {
+          "notice": "The payment received for the subscription renewal is insufficient."
+        }
+      ],
+      "InvalidSubscription()": [
+        {
+          "notice": "The subscription associated with the provided token ID is invalid or has expired."
+        }
+      ],
+      "RenewalTooLong()": [
+        {
+          "notice": "The duration provided for renewal exceeds the allowed maximum for subscription extension."
+        }
+      ],
+      "RenewalTooShort()": [
+        {
+          "notice": "The duration provided for renewal is too short to extend the subscription."
+        }
+      ],
+      "SubscriptionNotRenewable()": [
+        {
+          "notice": "The subscription associated with the token is not renewable and cannot be extended."
+        }
+      ],
+      "ValueCannotBeZero()": [
+        {
+          "notice": "Error message for zero value."
+        }
+      ]
+    },
+    "events": {
+      "SubscriptionUpdate(uint256,uint64)": {
+        "notice": "Emitted when a subscription expiration changes"
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "DEFAULT_SUBSCRIPTION_DURATION()": {
+        "notice": "The default duration for subscriptions, set to 365 days (1 year)."
+      },
+      "MINTER_ROLE()": {
+        "notice": "Access control roles"
+      },
+      "cancelSubscription(uint256)": {
+        "notice": "Cancels the subscription of an NFT"
+      },
+      "cre8orsNFT()": {
+        "notice": "The address of the collection contract that mints and manages the tokens."
+      },
+      "expiresAt(uint256)": {
+        "notice": "Gets the expiration date of a subscription"
+      },
+      "isAdmin(address,address)": {
+        "notice": "Getter for admin role associated with the contract to handle minting"
+      },
+      "isRenewable(uint256)": {
+        "notice": "Determines whether a subscription can be renewed"
+      },
+      "isSubscriptionValid(uint256)": {
+        "notice": "Returns whether the subscription for the given `tokenId` is valid."
+      },
+      "maxRenewalDuration()": {
+        "notice": "The maximum duration allowed for subscription renewal. A value of 0 means lifetime extension is allowed."
+      },
+      "minRenewalDuration()": {
+        "notice": "The minimum duration allowed for subscription renewal."
+      },
+      "pricePerSecond()": {
+        "notice": "The price per second for the subscription in native currency."
+      },
+      "renewSubscription(uint256,uint64)": {
+        "notice": "Renews the subscription to an NFT Throws if `tokenId` is not a valid NFT"
+      },
+      "setMaxRenewalDuration(address,uint64)": {
+        "notice": "Sets the maximum duration for subscription renewal."
+      },
+      "setMinRenewalDuration(address,uint64)": {
+        "notice": "Sets the minimum duration for subscription renewal."
+      },
+      "setPricePerSecond(address,uint256)": {
+        "notice": "Sets the price per second of the native currency."
+      },
+      "setRenewable(address,bool)": {
+        "notice": "Sets the renewability status of subscriptions."
+      },
+      "updateSubscription(address,uint64,uint256)": {
+        "notice": "Extends the subscription for the given `tokenId` with a specified `duration`, using native currency as payment."
+      },
+      "updateSubscription(address,uint64,uint256[])": {
+        "notice": "Extends the subscription for the given `tokenIds` with a specified `duration`, using native currency as payment."
+      },
+      "updateSubscriptionForFree(address,uint64,uint256)": {
+        "notice": "Extends the subscription for the given `tokenId` with a specified `duration` for free."
+      },
+      "updateSubscriptionForFree(address,uint64,uint256[])": {
+        "notice": "Extends the subscription for the given `tokenIds` with a specified `duration` for free."
+      },
+      "validateSubscription(uint256)": {
+        "notice": "Validates the subscription for the given `tokenId`. Throws if `tokenId` subscription has expired."
+      },
+      "withdraw(address,address)": {
+        "notice": "Withdraws the native currency from the contract to the specified address."
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 775,
+        "contract": "contracts/Subscription.sol:Subscription",
+        "label": "pricePerSecond",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 410,
+        "contract": "contracts/Subscription.sol:Subscription",
+        "label": "_expirations",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_uint256,t_uint64)"
+      },
+      {
+        "astId": 413,
+        "contract": "contracts/Subscription.sol:Subscription",
+        "label": "minRenewalDuration",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_uint64"
+      },
+      {
+        "astId": 416,
+        "contract": "contracts/Subscription.sol:Subscription",
+        "label": "maxRenewalDuration",
+        "offset": 8,
+        "slot": "2",
+        "type": "t_uint64"
+      },
+      {
+        "astId": 419,
+        "contract": "contracts/Subscription.sol:Subscription",
+        "label": "cre8orsNFT",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_address"
+      },
+      {
+        "astId": 15,
+        "contract": "contracts/Subscription.sol:Subscription",
+        "label": "_renewable",
+        "offset": 20,
+        "slot": "3",
+        "type": "t_bool"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_uint256,t_uint64)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => uint64)",
+        "numberOfBytes": "32",
+        "value": "t_uint64"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      },
+      "t_uint64": {
+        "encoding": "inplace",
+        "label": "uint64",
+        "numberOfBytes": "8"
+      }
+    }
+  }
+}
