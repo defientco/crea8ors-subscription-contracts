@@ -1,9 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
+import { ICre8ors } from "@crea8ors/interfaces/ICre8ors.sol";
 import { IERC721 } from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import { IERC5643 } from "../interfaces/IERC5643.sol";
 import { PaymentSystem } from "../abstracts/PaymentSystem.sol";
+import { IERC721Drop } from "@crea8ors/interfaces/IERC721Drop.sol";
 
 /// @title ERC5643
 /// @notice An abstract contract implementing the IERC5643 interface for managing subscriptions to ERC721 tokens.
@@ -25,14 +27,57 @@ abstract contract ERC5643 is IERC5643, PaymentSystem {
     /// @notice The maximum duration allowed for subscription renewal. A value of 0 means lifetime extension is allowed.
     uint64 public maxRenewalDuration; // 0 value means lifetime extension
 
+    ///@notice The address of the collection contract that mints and manages the tokens.
+    address public cre8orsNFT;
+
+    /*//////////////////////////////////////////////////////////////
+                                MODIFIERS
+    //////////////////////////////////////////////////////////////*/
+
+    modifier onlyApprovedOrOwner(address spender, uint256 tokenId) {
+        if (!_isApprovedOrOwner(spender, tokenId)) {
+            revert IERC721Drop.Access_MissingOwnerOrApproved();
+        }
+
+        _;
+    }
+
+    modifier isDurationBetweenMinAndMax(uint64 duration) {
+        if (duration < minRenewalDuration) {
+            revert RenewalTooShort();
+        } else if (maxRenewalDuration != 0 && duration > maxRenewalDuration) {
+            revert RenewalTooLong();
+        }
+
+        _;
+    }
+
+    modifier isRenewalPriceValid(uint256 value, uint64 duration) {
+        if (duration == 0) {
+            revert InvalidDuration();
+        }
+
+        if (value < _getRenewalPrice(duration)) {
+            revert InsufficientPayment();
+        }
+
+        _;
+    }
+
     /*//////////////////////////////////////////////////////////////
                                CONSTRUCTOR
     //////////////////////////////////////////////////////////////*/
 
-    /// @dev Constructor for the ERC5643 contract.
-    /// @param _cre8orsNFT The address of the Cre8ors NFT contract.
-    /// @param _minter The address of the minter e.g. FriendsAndFamilyMinter.
-    constructor(address _cre8orsNFT, address _minter) PaymentSystem(_cre8orsNFT, _minter) { }
+    constructor(
+        address cre8orsNFT_,
+        uint64 minRenewalDuration_,
+        uint256 pricePerSecond_
+    )
+        PaymentSystem(pricePerSecond_)
+    {
+        cre8orsNFT = cre8orsNFT_;
+        minRenewalDuration = minRenewalDuration_;
+    }
 
     /*//////////////////////////////////////////////////////////////
                      USER-FACING CONSTANT FUNCTIONS
@@ -58,21 +103,30 @@ abstract contract ERC5643 is IERC5643, PaymentSystem {
     //////////////////////////////////////////////////////////////*/
 
     /// @inheritdoc IERC5643
-    function renewSubscription(uint256 tokenId, uint64 duration) external payable virtual override {
-        _validateCallerAsOwnerOrApproved({ caller: msg.sender, tokenId: tokenId });
-
-        _validateDurationBetweenMinAndMax(duration);
-
-        _validateRenewalPrice(msg.value, duration);
-
+    function renewSubscription(
+        uint256 tokenId,
+        uint64 duration
+    )
+        external
+        payable
+        virtual
+        override
+        onlyApprovedOrOwner(msg.sender, tokenId)
+        isDurationBetweenMinAndMax(duration)
+        isRenewalPriceValid(msg.value, duration)
+    {
         // extend subscription
         _updateSubscriptionExpiration(tokenId, duration);
     }
 
     /// @inheritdoc IERC5643
-    function cancelSubscription(uint256 tokenId) external payable virtual override {
-        _validateCallerAsOwnerOrApproved({ caller: msg.sender, tokenId: tokenId });
-
+    function cancelSubscription(uint256 tokenId)
+        external
+        payable
+        virtual
+        override
+        onlyApprovedOrOwner(msg.sender, tokenId)
+    {
         delete _expirations[tokenId];
 
         emit SubscriptionUpdate(tokenId, 0);
@@ -82,54 +136,18 @@ abstract contract ERC5643 is IERC5643, PaymentSystem {
                        INTERNAL CONSTANT FUNCTIONS
     //////////////////////////////////////////////////////////////*/
 
-    /// @notice Gets the price to renew a subscription for a specified `duration` in seconds.
-    /// @dev This Internal function should be implemented in derived contracts to calculate the renewal price for the
-    /// subscription.
-    /// @param duration The duration (in seconds) for which the subscription is to be extended.
-    /// @return The price (in native currency) required to renew the subscription for the given duration.
-    function _getRenewalPrice(uint64 duration) internal view virtual returns (uint256);
-
     /// @notice Checks whether the subscription is renewable.
     /// @dev This Internal function should be implemented in derived contracts to determine if renewability should be
     /// disabled for all or some tokens.
     /// @return A boolean value indicating whether the subscription can be renewed (true) or not (false).
     function _isRenewable() internal view virtual returns (bool);
 
-    /// @notice Validates that the function caller is either the owner of the token or approved to perform the
-    /// operation.
-    /// @dev This function checks if the `caller` is approved or the owner of the `tokenId` NFT and reverts with
-    /// `CallerNotOwnerNorApproved` error if not.
-    /// @param caller The address of the function caller.
-    /// @param tokenId The unique identifier of the NFT token for which the validation is performed.
-    function _validateCallerAsOwnerOrApproved(address caller, uint256 tokenId) internal view {
-        if (!_isApprovedOrOwner(caller, tokenId)) {
-            revert CallerNotOwnerNorApproved();
-        }
-    }
-
-    /// @notice Validates that the provided `duration` falls within the minimum and maximum renewal duration bounds.
-    /// @dev This function checks if the `duration` is greater than or equal to the minimum renewal duration and less
-    /// than or equal to the maximum renewal duration (if defined).
-    /// @param duration The duration (in seconds) to validate.
-    function _validateDurationBetweenMinAndMax(uint64 duration) internal view {
-        if (duration < minRenewalDuration) {
-            revert RenewalTooShort();
-        } else if (maxRenewalDuration != 0 && duration > maxRenewalDuration) {
-            revert RenewalTooLong();
-        }
-    }
-
-    /// @notice Validates that the `val` is greater than or equal to the renewal price for the specified `tokenId` and
-    /// `duration`.
-    /// @dev This function checks if the payment value `val` is sufficient for renewing the subscription represented by
-    /// `tokenId` for the provided `duration`.
-    /// @param val The payment value provided by the function caller.
+    /// @notice Gets the price to renew a subscription for a specified `duration` in seconds.
+    /// @dev This Internal function should be implemented in derived contracts to calculate the renewal price for the
+    /// subscription.
     /// @param duration The duration (in seconds) for which the subscription is to be extended.
-    function _validateRenewalPrice(uint256 val, uint64 duration) internal view {
-        if (val < _getRenewalPrice(duration)) {
-            revert InsufficientPayment();
-        }
-    }
+    /// @return The price (in native currency) required to renew the subscription for the given duration.
+    function _getRenewalPrice(uint64 duration) internal view virtual returns (uint256);
 
     /*//////////////////////////////////////////////////////////////
                      INTERNAL NON-CONSTANT FUNCTIONS
@@ -171,12 +189,13 @@ abstract contract ERC5643 is IERC5643, PaymentSystem {
         maxRenewalDuration = duration;
     }
 
-    // if crea8ors has an `isApprovedOrOwner` then this can be removed
+    /// @notice Requires that spender owns or is approved for the token.
     function _isApprovedOrOwner(address spender, uint256 tokenId) internal view virtual returns (bool) {
-        address owner = IERC721(cre8orsNFT).ownerOf(tokenId);
+        address cre8orsNFT_ = cre8orsNFT;
+        address owner = IERC721(cre8orsNFT_).ownerOf(tokenId);
         return (
-            spender == owner || IERC721(cre8orsNFT).isApprovedForAll(owner, spender)
-                || IERC721(cre8orsNFT).getApproved(tokenId) == spender
+            spender == owner || IERC721(cre8orsNFT_).isApprovedForAll(owner, spender)
+                || IERC721(cre8orsNFT_).getApproved(tokenId) == spender
         );
     }
 }
