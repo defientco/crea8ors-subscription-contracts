@@ -21,7 +21,8 @@ interface IERC5643 {
     /// @notice The subscription associated with the token is not renewable and cannot be extended.
     error SubscriptionNotRenewable();
 
-    error InvalidDuration();
+    /// @notice The duration provided for renewal price calculation cannot be zero.
+    error DurationForRenewalPriceCannotBeZero();
 
     /*//////////////////////////////////////////////////////////////
                                  EVENTS
