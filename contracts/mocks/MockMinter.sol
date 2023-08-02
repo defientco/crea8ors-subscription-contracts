@@ -15,12 +15,13 @@ contract MockMinter {
         subscription = _subscription;
     }
 
-    function mint(address recipient) external returns (uint256) {
+    /// @param target The address of the contract implementing the access control
+    function mint(address target, address recipient) external returns (uint256) {
         // Mint the token
         uint256 pfpTokenId = IMockNFT(mockNFT).mint({ to: recipient, tokenId: 1 });
 
         // Register subscription for free for 12 days
-        ISubscription(subscription).updateSubscription({ tokenId: 1, duration: 10 days });
+        ISubscription(subscription).updateSubscriptionForFree({ target: target, tokenId: 1, duration: 10 days });
 
         return pfpTokenId;
     }
