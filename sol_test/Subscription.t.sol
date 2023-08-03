@@ -3,6 +3,8 @@ pragma solidity >=0.8.19 <0.9.0;
 
 import { Test } from "forge-std/Test.sol";
 
+import { IAccessControl } from "@openzeppelin/contracts/access/IAccessControl.sol";
+import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 import { MockMinter } from "contracts/mocks/MockMinter.sol";
 import { MockNFT } from "contracts/mocks/MockNFT.sol";
 import { Subscription } from "contracts/Subscription.sol";
@@ -13,6 +15,8 @@ import { console2 } from "forge-std/console2.sol";
 error SubscriptionExpired();
 
 contract SubscriptionTest is Test {
+    bytes32 public immutable MINTER_ROLE = keccak256("MINTER");
+
     address payable internal user = payable(address(0x12345));
     MockMinter internal mockMinter;
     MockNFT internal mockNFT;
@@ -23,7 +27,10 @@ contract SubscriptionTest is Test {
         vm.deal(user, 10 ether);
         vm.startPrank(user);
 
-        mockNFT = new MockNFT();
+        mockNFT = new MockNFT({
+            _enableSubscription: true,
+            _initialOwner: user
+        });
 
         subscription = new Subscription({
             cre8orsNFT_: address(mockNFT),
@@ -32,9 +39,12 @@ contract SubscriptionTest is Test {
         });
 
         mockNFT.setSubscription(address(subscription));
-        mockNFT.toggleSubscription();
 
         mockMinter = new MockMinter({_mockNFT: address(mockNFT), _subscription: address(subscription)});
+
+        IAccessControl(mockNFT).grantRole(MINTER_ROLE, address(mockMinter));
+
+        Ownable(address(mockNFT)).transferOwnership(address(mockMinter));
     }
 
     function test_BasicSubscriptionModel() external {
@@ -44,7 +54,7 @@ contract SubscriptionTest is Test {
         vm.warp(block.timestamp + 1 days);
 
         // mint nft for user(user)
-        mockMinter.mint(address(mockNFT), user, tokenId);
+        mockMinter.freeMint(address(mockNFT), user, tokenId);
 
         // ownerOf returns correct user
         owner = mockNFT.ownerOf(tokenId);
