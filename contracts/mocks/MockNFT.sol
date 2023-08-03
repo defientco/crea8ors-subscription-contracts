@@ -22,6 +22,8 @@ contract MockNFT is IMockNFT, Ownable, ERC721 {
 
     constructor() ERC721("", "") { }
 
+    receive() external payable { }
+
     function mint(address to, uint256 tokenId) public returns (uint256) {
         _mint(to, tokenId);
         totalSupply++;

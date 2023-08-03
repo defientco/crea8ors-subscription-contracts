@@ -16,12 +16,34 @@ contract MockMinter {
     }
 
     /// @param target The address of the contract implementing the access control
-    function mint(address target, address recipient, uint256 tokenId) external returns (uint256) {
+    function freeMint(address target, address recipient, uint256 tokenId, uint64 duration) external returns (uint256) {
         // Mint the token
         uint256 pfpTokenId = IMockNFT(mockNFT).mint({ to: recipient, tokenId: tokenId });
 
-        // Register subscription for free for 10 days
-        ISubscription(subscription).updateSubscriptionForFree({ target: target, tokenId: 1, duration: 10 days });
+        ISubscription(subscription).updateSubscriptionForFree({ target: target, tokenId: tokenId, duration: duration });
+
+        return pfpTokenId;
+    }
+
+    /// @param target The address of the contract implementing the access control
+    function mint(
+        address target,
+        address recipient,
+        uint256 tokenId,
+        uint64 duration
+    )
+        external
+        payable
+        returns (uint256)
+    {
+        // Mint the token
+        uint256 pfpTokenId = IMockNFT(mockNFT).mint({ to: recipient, tokenId: tokenId });
+
+        ISubscription(subscription).updateSubscription{ value: msg.value }({
+            target: target,
+            tokenId: tokenId,
+            duration: duration
+        });
 
         return pfpTokenId;
     }

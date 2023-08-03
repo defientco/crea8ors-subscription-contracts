@@ -134,6 +134,7 @@ contract Subscription is ISubscription, ERC5643 {
     {
         // extend subscription
         _updateSubscriptionExpiration(tokenId, duration);
+        _sendValue(payable(target), msg.value);
     }
 
     /// @inheritdoc ISubscription
@@ -161,6 +162,7 @@ contract Subscription is ISubscription, ERC5643 {
                 ++i;
             }
         }
+        _sendValue(payable(target), msg.value);
     }
 
     /*//////////////////////////////////////////////////////////////

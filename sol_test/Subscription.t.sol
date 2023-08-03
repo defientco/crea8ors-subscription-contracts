@@ -37,14 +37,36 @@ contract SubscriptionTest is Test {
         mockMinter = new MockMinter({_mockNFT: address(mockNFT), _subscription: address(subscription)});
     }
 
-    function test_BasicSubscriptionModel() external {
+    function test_UpdateSubscriptionForFree() external {
         uint256 tokenId = 1;
         address owner;
 
         vm.warp(block.timestamp + 1 days);
 
         // mint nft for user(user)
-        mockMinter.mint(address(mockNFT), user, tokenId);
+        mockMinter.freeMint(address(mockNFT), user, tokenId, 10 days);
+
+        // ownerOf returns correct user
+        owner = mockNFT.ownerOf(tokenId);
+        assertEq(owner, user);
+
+        // 30 days passed
+        vm.warp(block.timestamp + 30 days);
+
+        owner = mockNFT.ownerOf(tokenId);
+        assertEq(owner, address(0));
+    }
+
+    function test_UpdateSubscription() external {
+        uint256 tokenId = 1;
+        address owner;
+
+        vm.warp(block.timestamp + 1 days);
+
+        // mint nft for user(user)
+        mockMinter.mint{ value: 0.1 ether }(address(mockNFT), user, tokenId, 30 days);
+
+        assertEq(address(mockNFT).balance, 0.1 ether);
 
         // ownerOf returns correct user
         owner = mockNFT.ownerOf(tokenId);

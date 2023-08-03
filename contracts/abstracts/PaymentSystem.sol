@@ -31,11 +31,7 @@ abstract contract PaymentSystem is IPaymentSystem, Admin {
         emit PricePerSecondUpdated(newPrice);
     }
 
-    /// @inheritdoc IPaymentSystem
-    function withdraw(address target, address payable to) external override onlyAdmin(target) notZeroAddress(to) {
-        uint256 amount = address(this).balance;
-        if (amount == 0) revert ValueCannotBeZero();
-
+    function _sendValue(address payable to, uint256 amount) internal {
         (bool success,) = to.call{ value: amount }("");
         if (!success) revert ETHTransferFailed();
     }

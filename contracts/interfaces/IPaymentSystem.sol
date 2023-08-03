@@ -18,9 +18,4 @@ interface IPaymentSystem {
     /// @param target The address of the contract implementing the access control.
     /// @param newPrice The new price per second to be set.
     function setPricePerSecond(address target, uint256 newPrice) external;
-
-    /// @notice Withdraws the native currency from the contract to the specified address.
-    /// @param target The address of the contract implementing the access control.
-    /// @param to The address to which the native currency should be withdrawn.
-    function withdraw(address target, address payable to) external;
 }
