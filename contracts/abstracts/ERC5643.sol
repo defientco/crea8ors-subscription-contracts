@@ -14,7 +14,7 @@ abstract contract ERC5643 is IERC5643, PaymentSystem {
     //////////////////////////////////////////////////////////////*/
 
     /// @notice Mapping to store the expiration timestamps for each tokenId representing an active subscription.
-    mapping(uint256 tokenId => uint64 expiresAt) private _expirations;
+    mapping(uint256 => uint64) private _expirations;
 
     /*//////////////////////////////////////////////////////////////
                              PUBLIC STORAGE
